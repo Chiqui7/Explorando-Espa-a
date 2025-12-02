@@ -386,68 +386,153 @@
       ]
     };
 
+    // Información más detallada con sitios concretos
     const cityInfo = {
       "Sevilla": `
-        <strong>Actividades:</strong> Catedral y Giralda, Real Alcázar, Barrio de Santa Cruz, Plaza de España.<br>
-        <strong>Hoteles:</strong> Casco histórico y zona centro con hoteles boutique y 3-4*.<br>
-        <strong>Transporte:</strong> Todo a pie en el centro, tranvía y buses, AVE con Madrid.<br>
-        <strong>Fiesta:</strong> Triana, Alameda, terrazas en el centro y tablaos de flamenco.
+        <strong>Actividades:</strong> Catedral y Giralda, Real Alcázar, Plaza de España, paseo por el Barrio de Santa Cruz y orillas del río Guadalquivir.<br>
+        <strong>Hoteles:</strong> Hoteles boutique cerca de la Catedral, alojamientos con terraza en Triana y zona centro.<br>
+        <strong>Transporte:</strong> AVE con Madrid y Barcelona, tranvía y buses; el casco histórico se recorre a pie.<br>
+        <strong>Fiesta:</strong> Triana (Betis y Pureza), Alameda de Hércules, terrazas de la zona de la Cartuja y tablaos flamencos.
       `,
       "Málaga": `
-        <strong>Actividades:</strong> Alcazaba, Castillo de Gibralfaro, Muelle Uno, museos y playas urbanas.<br>
-        <strong>Hoteles:</strong> Hoteles de ciudad en el centro y resorts de playa en la costa.<br>
-        <strong>Transporte:</strong> Aeropuerto internacional, tren de cercanías, autobuses frecuentes.<br>
-        <strong>Fiesta:</strong> Centro histórico, Soho y chiringuitos con música.
+        <strong>Actividades:</strong> Alcazaba y castillo de Gibralfaro, Muelle Uno, Museo Picasso, Centre Pompidou, playas de la Malagueta y Pedregalejo.<br>
+        <strong>Hoteles:</strong> Hoteles de ciudad en el centro histórico, hoteles con rooftop en Soho y resorts de playa en la Costa del Sol.<br>
+        <strong>Transporte:</strong> Aeropuerto muy bien conectado, tren de cercanías a la costa, autobuses urbanos.<br>
+        <strong>Fiesta:</strong> Bares de Soho y centro, chiringuitos con música en la playa y zona de Teatinos para ambiente local.
+      `,
+      "Cádiz": `
+        <strong>Actividades:</strong> Casco histórico, playa de La Caleta, castillo de San Sebastián, excursiones a Tarifa, Zahara de los Atunes o Conil.<br>
+        <strong>Hoteles:</strong> Hoteles pequeños en el casco antiguo, alojamientos frente al mar y resorts en la costa.<br>
+        <strong>Transporte:</strong> Tren desde Sevilla, coche ideal para recorrer la Costa de la Luz.<br>
+        <strong>Fiesta:</strong> Terrazas del casco antiguo y bares junto al paseo marítimo.
       `,
       "Granada": `
-        <strong>Actividades:</strong> Alhambra, Albaicín, miradores y rutas de tapas.<br>
-        <strong>Hoteles:</strong> Zona centro y entorno de la Alhambra, gran variedad de precios.<br>
-        <strong>Transporte:</strong> Ciudades cercanas y Sierra Nevada accesibles en bus o coche.<br>
-        <strong>Fiesta:</strong> Bares de tapas y pubs en el centro.
+        <strong>Actividades:</strong> Alhambra, Albaicín, Sacromonte, mirador de San Nicolás y ruta de tapas por el centro.<br>
+        <strong>Hoteles:</strong> Zona Catedral, Realejo y hoteles con vistas a la Alhambra.<br>
+        <strong>Transporte:</strong> Ciudad muy caminable; buses urbanos y acceso a Sierra Nevada en temporada.<br>
+        <strong>Fiesta:</strong> Bares de tapas en Calle Elvira y Navas, pubs en Pedro Antonio y ambiente universitario.
+      `,
+      "Córdoba": `
+        <strong>Actividades:</strong> Mezquita-Catedral, Judería, patios cordobeses, Medina Azahara.<br>
+        <strong>Hoteles:</strong> Alojamiento en la Judería, hoteles con patio interior y casas tradicionales.<br>
+        <strong>Transporte:</strong> AVE con Madrid y Sevilla, casi todo se puede hacer andando.<br>
+        <strong>Fiesta:</strong> Terrazas junto al río y zona centro con bares íntimos.
       `,
       "Barcelona": `
-        <strong>Actividades:</strong> Sagrada Familia, Park Güell, Casa Batlló, paseo marítimo y playas.<br>
-        <strong>Hoteles:</strong> Eixample para moverse bien, zona playa para vacaciones de sol.<br>
-        <strong>Transporte:</strong> Metro, buses y bici, ciudad muy bien conectada.<br>
-        <strong>Fiesta:</strong> Bares y clubs en zonas como Eixample, Born y Barceloneta.
+        <strong>Actividades:</strong> Sagrada Familia, Park Güell, Casa Batlló, paseo por el Born y el Gòtic, playas de la Barceloneta y Port Olímpic.<br>
+        <strong>Hoteles:</strong> Eixample para moverse bien, hoteles frente al mar en Barceloneta y Vila Olímpica.<br>
+        <strong>Transporte:</strong> Metro y buses muy completos, fácil moverse sin coche.<br>
+        <strong>Fiesta:</strong> Tapas y copas en El Born y Poble-sec, clubs y beach clubs en Port Olímpic y salas como Razzmatazz.
+      `,
+      "Girona (Costa Brava)": `
+        <strong>Actividades:</strong> Casco medieval de Girona, pueblos como Tossa de Mar, Calella de Palafrugell, Begur o Cadaqués, calas de agua turquesa.<br>
+        <strong>Hoteles:</strong> Hoteles en Girona ciudad, casas rurales en el interior y alojamientos junto al mar en la Costa Brava.<br>
+        <strong>Transporte:</strong> Tren a Girona; coche muy recomendable para moverse entre calas y pueblos.<br>
+        <strong>Fiesta:</strong> Chiringuitos y terrazas en la costa, bares tranquilos de pueblo.
       `,
       "Madrid": `
-        <strong>Actividades:</strong> Museo del Prado, Parque del Retiro, Palacio Real, barrios de Malasaña y La Latina.<br>
-        <strong>Hoteles:</strong> Centro (Sol, Gran Vía) y barrios con encanto (Chamberí, Huertas).<br>
-        <strong>Transporte:</strong> Metro y cercanías, no hace falta coche.<br>
-        <strong>Fiesta:</strong> Azoteas, bares de copas y discotecas para todos los gustos.
+        <strong>Actividades:</strong> Museo del Prado, Reina Sofía y Thyssen, Parque del Retiro, Palacio Real, barrios como Malasaña, Chueca y La Latina.<br>
+        <strong>Hoteles:</strong> Zona Gran Vía, Sol y Huertas para estar en el corazón de la ciudad; Chamberí para algo más tranquilo.<br>
+        <strong>Transporte:</strong> Metro y cercanías cubren prácticamente todo, no necesitas coche.<br>
+        <strong>Fiesta:</strong> Malasaña y Chueca para ambiente alternativo y LGTBI, Huertas y La Latina para tapas y copas, azoteas en Gran Vía.
       `,
       "Valencia": `
-        <strong>Actividades:</strong> Ciudad de las Artes y las Ciencias, casco antiguo, playas de la Malvarrosa y Patacona.<br>
-        <strong>Hoteles:</strong> Centro para combinar cultura y ocio, zona playa para vacaciones de mar.<br>
-        <strong>Transporte:</strong> Metro, tranvía y carriles bici.<br>
-        <strong>Fiesta:</strong> Ruzafa, Cánovas y locales frente al mar.
+        <strong>Actividades:</strong> Ciudad de las Artes y las Ciencias, casco histórico, parque del Turia, playas de la Malvarrosa y Patacona, paella en la Albufera.<br>
+        <strong>Hoteles:</strong> Centro para combinar cultura y ocio, alojamientos frente al mar en la zona de playa.<br>
+        <strong>Transporte:</strong> Metro y tranvía, ciudad muy amigable para la bici.<br>
+        <strong>Fiesta:</strong> Bares y pubs en Ruzafa y Cánovas, locales junto al mar en Marina y paseo marítimo.
       `,
       "Alicante (Costa Blanca)": `
-        <strong>Actividades:</strong> Castillo de Santa Bárbara, paseo marítimo, excursiones a la Costa Blanca.<br>
-        <strong>Hoteles:</strong> Hoteles y apartamentos frente al mar, resorts en pueblos cercanos.<br>
-        <strong>Transporte:</strong> Aeropuerto cercano, tranvía TRAM por la costa.<br>
-        <strong>Fiesta:</strong> Zona de la Explanada y bares junto a la playa.
+        <strong>Actividades:</strong> Castillo de Santa Bárbara, paseo por el casco antiguo y Explanada, excursiones a la Costa Blanca (Altea, Calpe, Benidorm).<br>
+        <strong>Hoteles:</strong> Hoteles y apartamentos frente al mar, alojamientos en el centro histórico y zona de puerto.<br>
+        <strong>Transporte:</strong> Aeropuerto cercano, tranvía TRAM por la costa y buen acceso en tren.<br>
+        <strong>Fiesta:</strong> Bares y discotecas junto al puerto y paseo marítimo, beach clubs en la Costa Blanca.
       `,
       "Dénia": `
-        <strong>Actividades:</strong> Playas, puerto, rutas al Montgó, paseos en barco a Ibiza y Formentera.<br>
-        <strong>Hoteles:</strong> Apartamentos y hoteles frente al mar, casas rurales en el interior.<br>
-        <strong>Transporte:</strong> Coche muy recomendable, ferris a Baleares.<br>
-        <strong>Fiesta:</strong> Terrazas junto al puerto y chiringuitos.
+        <strong>Actividades:</strong> Playas de Les Marines y Les Rotes, castillo de Dénia, rutas por el Montgó, paseos en barco hacia Ibiza y Formentera.<br>
+        <strong>Hoteles:</strong> Hoteles y apartamentos frente al mar, casas rurales en la zona interior.<br>
+        <strong>Transporte:</strong> Coche muy recomendable; ferris desde el puerto hacia Baleares.<br>
+        <strong>Fiesta:</strong> Terrazas del puerto, chiringuitos de playa y locales con música en verano.
       `,
-      "Ibiza": `
-        <strong>Actividades:</strong> Calas y playas, atardeceres en San Antonio, Dalt Vila, rutas en barco.<br>
-        <strong>Hoteles:</strong> Hoteles de playa, agroturismos en interior, villas privadas.<br>
-        <strong>Transporte:</strong> Coche o moto para explorar bien la isla.<br>
-        <strong>Fiesta:</strong> Clubs mundialmente conocidos y beach clubs, pero también zonas tranquilas.
+      "Bilbao": `
+        <strong>Actividades:</strong> Museo Guggenheim, casco viejo (Siete Calles), paseo por la ría, funicular de Artxanda, excursiones a San Juan de Gaztelugatxe.<br>
+        <strong>Hoteles:</strong> Zona Guggenheim y centro, hoteles boutique cerca de la ría.<br>
+        <strong>Transporte:</strong> Metro, tranvía y buses, buena base para visitar la costa vasca.<br>
+        <strong>Fiesta:</strong> Bares de pintxos en el casco viejo y zonas de Indautxu y Pozas.
+      `,
+      "San Sebastián": `
+        <strong>Actividades:</strong> Playa de La Concha, Parte Vieja, monte Igueldo, Ondarreta y Zurriola, ruta de pintxos.<br>
+        <strong>Hoteles:</strong> Hoteles frente a La Concha, alojamientos boutique en la Parte Vieja.<br>
+        <strong>Transporte:</strong> Ciudad perfecta para caminar o ir en bici; trenes regionales a pueblos cercanos.<br>
+        <strong>Fiesta:</strong> Bares de pintxos que se alargan hasta la noche y locales de copas en la Parte Vieja.
+      `,
+      "Santiago de Compostela": `
+        <strong>Actividades:</strong> Catedral y plaza del Obradoiro, casco histórico, parques como la Alameda, fin de etapa del Camino de Santiago.<br>
+        <strong>Hoteles:</strong> Hospedajes con encanto en el centro histórico y hoteles modernos en el ensanche.<br>
+        <strong>Transporte:</strong> Tren con A Coruña y resto de Galicia, ciudad muy cómoda para recorrer a pie.<br>
+        <strong>Ambiente:</strong> Bares de vinos y tapas con ambiente peregrino y universitario.
+      `,
+      "A Coruña": `
+        <strong>Actividades:</strong> Torre de Hércules, paseo marítimo, casco antiguo, playas de Riazor y Orzán.<br>
+        <strong>Hoteles:</strong> Hoteles frente al mar y alojamientos en el centro urbano.<br>
+        <strong>Transporte:</strong> Ciudad compacta para ir andando o en bus urbano.<br>
+        <strong>Fiesta:</strong> Zonas de vinos y tapas en el Orzán y el casco viejo.
+      `,
+      "Vigo (Rías Baixas)": `
+        <strong>Actividades:</strong> Casco viejo, puerto, excursiones a las islas Cíes, rutas por las Rías Baixas.<br>
+        <strong>Hoteles:</strong> Hoteles en el centro y alojamientos de costa en la ría.<br>
+        <strong>Transporte:</strong> Buen punto de partida para explorar las Rías Baixas en coche.<br>
+        <strong>Fiesta:</strong> Bares del casco histórico y zona del puerto.
       `,
       "Mallorca": `
-        <strong>Actividades:</strong> Serra de Tramuntana, calas, Palma histórica, rutas en bici.<br>
-        <strong>Hoteles:</strong> Resorts de playa, fincas rurales, hoteles boutique en el centro histórico.<br>
-        <strong>Transporte:</strong> Coche muy recomendable para ver la isla.<br>
-        <strong>Fiesta:</strong> Zonas animadas en Palma y calas con ambiente.
+        <strong>Actividades:</strong> Serra de Tramuntana, Palma histórica, calas como Cala d'Or o Cala Mondragó, pueblos como Sóller o Valldemossa.<br>
+        <strong>Hoteles:</strong> Resorts de playa en Palmanova o Alcúdia, fincas rurales y hoteles boutique en Palma y la Tramuntana.<br>
+        <strong>Transporte:</strong> Coche muy recomendable para recorrer la isla; tren turístico a Sóller desde Palma.<br>
+        <strong>Fiesta:</strong> Beach clubs en zonas como Magaluf o Playa de Palma, bares en el centro de Palma y terrazas con vistas al mar.
+      `,
+      "Ibiza": `
+        <strong>Actividades:</strong> Calas como Cala Comte, Cala Bassa o Cala d'Hort, atardeceres en San Antonio, Dalt Vila (Ibiza ciudad), excursiones en barco a Formentera.<br>
+        <strong>Hoteles:</strong> Hoteles de playa y beach clubs en Playa d'en Bossa y San Antonio, agroturismos y villas en el interior para un ambiente más tranquilo.<br>
+        <strong>Transporte:</strong> Coche o moto muy recomendables para moverte entre calas, playas y pueblos.<br>
+        <strong>Fiesta:</strong> Clubs y beach clubs como Ushuaïa, Hï Ibiza, Pacha, Amnesia, Hard Rock Hotel, O Beach o UNVRS, además de chiringuitos con ambiente chill.
+      `,
+      "Menorca": `
+        <strong>Actividades:</strong> Calas vírgenes como Macarella o Turqueta, pueblos como Ciutadella y Mahón, rutas del Camí de Cavalls.<br>
+        <strong>Hoteles:</strong> Hoteles familiares de playa y alojamientos rurales muy tranquilos.<br>
+        <strong>Transporte:</strong> Coche imprescindible para llegar a calas y rincones menos conocidos.<br>
+        <strong>Ambiente:</strong> Mucho más relajado que Ibiza o Mallorca, ideal para desconectar.
+      `,
+      "Formentera": `
+        <strong>Actividades:</strong> Playas de Ses Illetes y Migjorn, rutas en bici, atardeceres desde el faro de La Mola.<br>
+        <strong>Hoteles:</strong> Pequeños hoteles y apartamentos; muchas estancias cerca del mar.<br>
+        <strong>Transporte:</strong> Se llega en barco desde Ibiza; moverse en moto o bici es lo más habitual.<br>
+        <strong>Ambiente:</strong> Chill, bohemio y muy de día; algunos beach bars con música al atardecer.
+      `,
+      "Tenerife": `
+        <strong>Actividades:</strong> Parque Nacional del Teide, playas del sur (Costa Adeje, Los Cristianos), Anaga, avistamiento de cetáceos en barco.<br>
+        <strong>Hoteles:</strong> Resorts en el sur para sol y playa, hoteles rurales en el norte para naturaleza.<br>
+        <strong>Transporte:</strong> Coche muy recomendable para recorrer la isla completa.<br>
+        <strong>Fiesta:</strong> Zonas de ocio en Playa de las Américas y Costa Adeje.
+      `,
+      "Gran Canaria": `
+        <strong>Actividades:</strong> Dunas de Maspalomas, playas del sur, ciudad de Las Palmas, rutas por el interior montañoso.<br>
+        <strong>Hoteles:</strong> Resorts en Maspalomas y Playa del Inglés, hoteles urbanos en Las Palmas.<br>
+        <strong>Transporte:</strong> Autobuses interurbanos y coche de alquiler para llegar a las playas más alejadas.<br>
+        <strong>Fiesta:</strong> Vida nocturna en Playa del Inglés y Las Palmas.
+      `,
+      "Lanzarote": `
+        <strong>Actividades:</strong> Parque Nacional de Timanfaya, Jameos del Agua, Cueva de los Verdes, viñedos de La Geria.<br>
+        <strong>Hoteles:</strong> Zonas de Costa Teguise, Puerto del Carmen y Playa Blanca.<br>
+        <strong>Transporte:</strong> Coche para desplazarse entre volcanes, playas y pueblos blancos.<br>
+        <strong>Ambiente:</strong> Bares y restaurantes junto al mar con ambiente relajado.
+      `,
+      "Fuerteventura": `
+        <strong>Actividades:</strong> Playas kilométricas como Corralejo y Jandía, deportes acuáticos (surf, kitesurf, windsurf).<br>
+        <strong>Hoteles:</strong> Resorts en el norte y sur de la isla, hoteles enfocadas a deportes de agua.<br>
+        <strong>Transporte:</strong> Coche muy recomendable; distancias largas entre zonas.<br>
+        <strong>Ambiente:</strong> Bares de surfistas y chiringuitos con música frente al mar.
       `
-      // El resto de ciudades usan un texto genérico:
+      // El resto usará texto genérico
     };
 
     function getGenericCityInfo(city) {
@@ -481,6 +566,9 @@
           c.textContent = city;
 
           c.addEventListener("click", () => {
+            // BORRAR infos anteriores de esa CCAA antes de mostrar la nueva
+            list.querySelectorAll(".info-box").forEach(el => el.remove());
+
             const info = document.createElement("div");
             info.className = "info-box";
             info.innerHTML = cityInfo[city] || getGenericCityInfo(city);
@@ -683,7 +771,6 @@
         }
       }
 
-      // Botones de navegación
       const buttonsDiv = document.createElement("div");
 
       if (step > 0) {
@@ -873,10 +960,8 @@
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(bodyText);
 
-      // Abrir cliente de correo del usuario
       window.location.href = mailtoLink;
 
-      // Generar PDF con jsPDF
       if (window.jspdf) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -894,7 +979,6 @@
         doc.save("cuestionario-viaje.pdf");
       }
 
-      // Mostrar mensaje de confirmación en la web
       personalPlanContainer.innerHTML = `
         <div id="confirmationMessage">
           <strong>¡Cuestionario enviado!</strong>
