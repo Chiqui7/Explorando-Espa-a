@@ -331,6 +331,65 @@
       box-shadow: 0 18px 32px rgba(148, 163, 184, 0.23);
       font-size: 0.85rem;
     }
+.plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 18px 32px rgba(148, 163, 184, 0.18);
+  font-size: 0.85rem;
+}
+
+.plan-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.plan-tag.free {
+  background: #ecfdf5;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.plan-tag.paid {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.plan-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.plan-text {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.plan-note {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+@media (max-width: 860px) {
+  .plans {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 
     .step-icon {
       width: 26px;
@@ -653,6 +712,43 @@
     </section>
 
     <!-- CÓMO FUNCIONA -->
+     <section class="section" aria-label="Tipos de plan">
+  <h2 class="section-title">Planes gratis y personalizados</h2>
+  <p class="section-subtitle">
+    El cuestionario es siempre gratuito. Después tú decides si te vale con la versión básica o quieres algo más trabajado.
+  </p>
+
+  <div class="plans">
+    <article class="plan-card">
+      <div class="plan-tag free">
+        🌱 Plan gratis
+      </div>
+      <div class="plan-title">Idea de itinerario básica</div>
+      <p class="plan-text">
+        Te propongo una ruta general con zonas recomendadas, duración orientativa de cada parada
+        y una estructura de días para que tengas por dónde empezar.
+      </p>
+      <p class="plan-note">
+        Ideal si quieres inspiración rápida y tú mismo te encargas de buscar alojamientos, restaurantes y detalles.
+      </p>
+    </article>
+
+    <article class="plan-card">
+      <div class="plan-tag paid">
+        ✨ Plan personalizado
+      </div>
+      <div class="plan-title">Itinerario detallado y cuidado</div>
+      <p class="plan-text">
+        Recibes un PDF bonito y claro, con días organizados, recomendaciones concretas, notas prácticas y un hilo lógico
+        de viaje adaptado a tu ritmo, presupuesto y gustos.
+      </p>
+      <p class="plan-note">
+        Perfecto si quieres algo listo para enviar a tu cliente, pareja o amigos sin tener que montar tú todo el plan.
+      </p>
+    </article>
+  </div>
+</section>
+
     <section id="como-funciona" class="section">
       <h2 class="section-title">Cómo funciona</h2>
       <p class="section-subtitle">
@@ -698,85 +794,144 @@
         <form id="viaje-form">
           <div class="form-grid">
             <div class="form-group">
-              <label for="nombre">Tu nombre<span>*</span></label>
-              <input id="nombre" name="Nombre" type="text" required placeholder="Ej. Laura" />
-            </div>
+  <label for="zona">¿A qué zona / ciudad de España quieres viajar?<span>*</span></label>
+  <select id="zona" name="Zona o ciudad de destino" required>
+    <option value="">Elige una opción</option>
 
-            <div class="form-group">
-              <label for="email">Correo para recibir el plan<span>*</span></label>
-              <input id="email" name="Email" type="email" required placeholder="tu@email.com" />
-            </div>
+    <optgroup label="Andalucía">
+      <option value="Sevilla">Sevilla</option>
+      <option value="Málaga">Málaga</option>
+      <option value="Cádiz">Cádiz</option>
+      <option value="Granada">Granada</option>
+      <option value="Córdoba">Córdoba</option>
+      <option value="Almería">Almería</option>
+      <option value="Huelva">Huelva</option>
+      <option value="Jaén">Jaén</option>
+    </optgroup>
 
-            <div class="form-group">
-              <label for="origen">Ciudad o zona de salida<span>*</span></label>
-              <input id="origen" name="Ciudad de salida" type="text" required placeholder="Ej. Málaga, Madrid..." />
-            </div>
+    <optgroup label="Aragón">
+      <option value="Zaragoza">Zaragoza</option>
+      <option value="Huesca">Huesca</option>
+      <option value="Teruel">Teruel</option>
+    </optgroup>
 
-            <div class="form-group">
-              <label for="zona">Zona de España que te apetece más</label>
-              <select id="zona" name="Zona preferida">
-                <option value="">Me adapto, sorpréndeme</option>
-                <option value="norte">Norte (Galicia, Asturias, Cantabria, País Vasco...)</option>
-                <option value="costa-mediterranea">Costa Mediterránea</option>
-                <option value="islas">Islas (Baleares, Canarias)</option>
-                <option value="interior">Interior y ciudades</option>
-                <option value="andalucia">Andalucía</option>
-              </select>
-            </div>
+    <optgroup label="Asturias">
+      <option value="Oviedo">Oviedo</option>
+      <option value="Gijón">Gijón</option>
+      <option value="Avilés">Avilés</option>
+    </optgroup>
 
-            <div class="form-group">
-              <label for="dias">¿Cuántos días quieres viajar?<span>*</span></label>
-              <input id="dias" name="Número de días" type="number" min="1" max="30" required placeholder="Ej. 5" />
-            </div>
+    <optgroup label="Islas Baleares">
+      <option value="Mallorca">Mallorca</option>
+      <option value="Ibiza">Ibiza</option>
+      <option value="Menorca">Menorca</option>
+      <option value="Formentera">Formentera</option>
+    </optgroup>
 
-            <div class="form-group">
-              <label for="fechas">Fechas aproximadas</label>
-              <input id="fechas" name="Fechas aproximadas" type="text" placeholder="Ej. primera semana de junio" />
-            </div>
+    <optgroup label="Canarias">
+      <option value="Tenerife">Tenerife</option>
+      <option value="Gran Canaria">Gran Canaria</option>
+      <option value="Lanzarote">Lanzarote</option>
+      <option value="Fuerteventura">Fuerteventura</option>
+      <option value="La Palma">La Palma</option>
+      <option value="La Gomera">La Gomera</option>
+      <option value="El Hierro">El Hierro</option>
+    </optgroup>
 
-            <div class="form-group">
-              <label for="tipo">Tipo de viaje<span>*</span></label>
-              <select id="tipo" name="Tipo de viaje" required>
-                <option value="">Selecciona una opción</option>
-                <option value="pareja">Pareja</option>
-                <option value="familia">Familia</option>
-                <option value="amigos">Amigos</option>
-                <option value="solo">Solo/a</option>
-                <option value="grupo">Grupo organizado</option>
-              </select>
-            </div>
+    <optgroup label="Cantabria">
+      <option value="Santander">Santander</option>
+    </optgroup>
 
-            <div class="form-group">
-              <label for="presupuesto">Presupuesto por persona (aprox.)<span>*</span></label>
-              <select id="presupuesto" name="Presupuesto aproximado" required>
-                <option value="">Elige un rango</option>
-                <option value="economico">Económico</option>
-                <option value="medio">Medio</option>
-                <option value="alto">Más especial / alto</option>
-              </select>
-              <p class="help">No hace falta que sea exacto, solo para orientar el tipo de hoteles y actividades.</p>
-            </div>
+    <optgroup label="Castilla y León">
+      <option value="Valladolid">Valladolid</option>
+      <option value="Salamanca">Salamanca</option>
+      <option value="León">León</option>
+      <option value="Burgos">Burgos</option>
+      <option value="Segovia">Segovia</option>
+      <option value="Ávila">Ávila</option>
+      <option value="Soria">Soria</option>
+      <option value="Zamora">Zamora</option>
+      <option value="Palencia">Palencia</option>
+    </optgroup>
 
-            <div class="form-group">
-              <label for="ritmo">Ritmo de viaje<span>*</span></label>
-              <select id="ritmo" name="Ritmo de viaje" required>
-                <option value="">Selecciona</option>
-                <option value="relajado">Tranquilo, con tiempo para descansar</option>
-                <option value="mixto">Mixto: algo de visitas, algo de relax</option>
-                <option value="intenso">Intenso, quiero aprovechar cada día</option>
-              </select>
-            </div>
+    <optgroup label="Castilla-La Mancha">
+      <option value="Toledo">Toledo</option>
+      <option value="Albacete">Albacete</option>
+      <option value="Ciudad Real">Ciudad Real</option>
+      <option value="Cuenca">Cuenca</option>
+      <option value="Guadalajara">Guadalajara</option>
+    </optgroup>
 
-            <div class="form-group form-group-full">
-              <label for="intereses">¿Qué te gustaría que incluyera el plan?</label>
-              <textarea id="intereses" name="Intereses y preferencias" placeholder="Playas, naturaleza, pueblos bonitos, gastronomía, fiesta, museos…"></textarea>
-            </div>
+    <optgroup label="Cataluña">
+      <option value="Barcelona">Barcelona</option>
+      <option value="Girona">Girona</option>
+      <option value="Tarragona">Tarragona</option>
+      <option value="Lleida">Lleida</option>
+      <option value="Costa Brava">Costa Brava</option>
+      <option value="Costa Dorada">Costa Dorada</option>
+    </optgroup>
 
-            <div class="form-group form-group-full">
-              <label for="extra">Algo importante que deba saber</label>
-              <textarea id="extra" name="Detalles adicionales" placeholder="Viajas con niños, alergias, movilidad reducida, lugares que quieres sí o sí…"></textarea>
-            </div>
-          </div>
+    <optgroup label="Comunidad de Madrid">
+      <option value="Madrid">Madrid</option>
+      <option value="Sierra de Guadarrama">Sierra de Guadarrama</option>
+    </optgroup>
+
+    <optgroup label="Comunidad Valenciana">
+      <option value="Valencia">Valencia</option>
+      <option value="Alicante">Alicante</option>
+      <option value="Castellón">Castellón</option>
+      <option value="Costa Blanca">Costa Blanca</option>
+      <option value="Dénia">Dénia</option>
+    </optgroup>
+
+    <optgroup label="Extremadura">
+      <option value="Cáceres">Cáceres</option>
+      <option value="Badajoz">Badajoz</option>
+      <option value="Mérida">Mérida</option>
+    </optgroup>
+
+    <optgroup label="Galicia">
+      <option value="A Coruña">A Coruña</option>
+      <option value="Santiago de Compostela">Santiago de Compostela</option>
+      <option value="Vigo">Vigo</option>
+      <option value="Lugo">Lugo</option>
+      <option value="Ourense">Ourense</option>
+      <option value="Rías Baixas">Rías Baixas</option>
+    </optgroup>
+
+    <optgroup label="La Rioja">
+      <option value="Logroño">Logroño</option>
+      <option value="Ruta del vino en La Rioja">Ruta del vino</option>
+    </optgroup>
+
+    <optgroup label="Murcia">
+      <option value="Murcia">Murcia</option>
+      <option value="Cartagena">Cartagena</option>
+      <option value="La Manga">La Manga</option>
+    </optgroup>
+
+    <optgroup label="Navarra">
+      <option value="Pamplona">Pamplona</option>
+      <option value="Pirineo navarro">Pirineo navarro</option>
+    </optgroup>
+
+    <optgroup label="País Vasco">
+      <option value="Bilbao">Bilbao</option>
+      <option value="San Sebastián">San Sebastián</option>
+      <option value="Vitoria-Gasteiz">Vitoria-Gasteiz</option>
+      <option value="Costa vasca">Costa vasca</option>
+    </optgroup>
+
+    <optgroup label="Ceuta y Melilla">
+      <option value="Ceuta">Ceuta</option>
+      <option value="Melilla">Melilla</option>
+    </optgroup>
+  </select>
+  <p class="help">
+    Si tu destino es muy concreto o un pueblo pequeño, cuéntamelo al final en “Detalles adicionales”.
+  </p>
+</div>
+
 
           <div class="form-footer">
             <button type="submit" class="btn-primary">
