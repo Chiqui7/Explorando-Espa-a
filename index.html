@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Viajes España IA · Tu viaje perfecto por España</title>
+  <title>Viajes España IA | Tu viaje perfecto por España</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -12,1097 +12,858 @@
       --bg: #f4f4f7;
       --text: #0f172a;
       --muted: #6b7280;
+      --card: #ffffff;
       --border: #e5e7eb;
-      --card-radius: 18px;
+      --radius: 16px;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
     }
 
-    * { box-sizing: border-box; scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e5edff 0, #f4f4f7 50%, #e5e7eb 100%);
+      background: radial-gradient(circle at top, #e5edff 0, #f4f4f7 45%, #e5e7eb 100%);
       color: var(--text);
       line-height: 1.6;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
-      z-index: 20;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.9);
+      z-index: 10;
       backdrop-filter: blur(10px);
+      background: rgba(248, 250, 252, 0.85);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.7);
     }
 
-    .header-inner {
+    .nav {
       max-width: 1040px;
       margin: 0 auto;
-      padding: 10px 16px;
+      padding: 0.75rem 1.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 1rem;
     }
 
-    .brand {
+    .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
     }
 
-    .brand-logo {
+    .logo-icon {
       width: 32px;
       height: 32px;
-      border-radius: 12px;
-      background: radial-gradient(circle at 20% 20%, #bfdbfe, #2563eb);
-      box-shadow: 0 8px 18px rgba(37,99,235,0.4);
+      border-radius: 999px;
+      background: conic-gradient(from 160deg, #2563eb, #22c55e, #eab308, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-size: 0.8rem;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.4);
     }
 
-    .brand-text-main {
-      font-weight: 650;
-      letter-spacing: 0.06em;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       font-size: 0.85rem;
-      text-transform: uppercase;
     }
 
-    .brand-text-sub {
-      font-size: 0.75rem;
+    .nav-links a {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--border);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+    }
+
+    .nav-cta {
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.45);
+    }
+
+    .nav-cta span {
+      font-size: 1rem;
+    }
+
+    /* LAYOUT */
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 3rem;
+    }
+
+    .section {
+      margin-top: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
       color: var(--muted);
     }
 
-    .header-cta a {
-      font-size: 0.8rem;
-      border-radius: 999px;
-      padding: 6px 14px;
-      border: 1px solid var(--border);
-      background: #ffffff;
-      color: var(--primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    /* HERO */
     .hero {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 20px 16px 10px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
     }
 
-    .hero-top {
+    .hero-title {
+      font-size: clamp(2.1rem, 4vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.8rem;
+    }
+
+   .hero-title span {
+  background: linear-gradient(120deg, #2563eb, #22c55e);
+  -webkit-background-clip: text; /* Compatibilidad con Safari/iOS */
+  background-clip: text;         /* Propiedad estándar recomendada */
+  color: transparent;
+}
+
+
+    .hero-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      max-width: 30rem;
+    }
+
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 16px;
+      gap: 0.75rem;
       align-items: center;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      border: none;
+      padding: 0.8rem 1.4rem;
+      background: #111827;
+      color: #f9fafb;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      font-size: 0.95rem;
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      padding: 0.75rem 1.2rem;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--muted);
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      padding: 5px 12px;
+      gap: 0.45rem;
+      padding: 0.25rem 0.6rem;
       border-radius: 999px;
-      background: rgba(255,255,255,0.9);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .hero h1 {
-      margin: 4px 0 8px;
-      font-size: clamp(1.9rem, 3vw, 2.4rem);
-      letter-spacing: 0.01em;
-    }
-
-    .hero p.lead {
-      margin: 0;
-      max-width: 600px;
-      font-size: 0.98rem;
-      color: var(--muted);
-    }
-
-    .hero-actions {
-      margin-top: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .btn {
-      border-radius: 999px;
-      border: none;
-      padding: 9px 18px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #ffffff;
-      box-shadow: 0 10px 22px rgba(37,99,235,0.45);
-    }
-
-    .btn-ghost {
-      background: rgba(255,255,255,0.9);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    main {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 10px 16px 40px;
-    }
-
-    section { margin-bottom: 26px; }
-
-    /* Layout mapa + panel */
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(260px, 410px) minmax(260px, 1fr);
-      gap: 22px;
-      align-items: flex-start;
-      margin-top: 10px;
-    }
-
-    .card {
-      border-radius: var(--card-radius);
-      background: #ffffff;
-      border: 1px solid var(--border);
-      padding: 16px 16px 18px;
-      box-shadow: 0 16px 32px rgba(15,23,42,0.06);
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-      color: var(--text);
-    }
-
-    .card h3 {
-      margin: 0 0 6px;
-      font-size: 0.98rem;
-      color: var(--text);
-    }
-
-    .card small { font-size: 0.8rem; }
-
-    .map-canvas {
-      position: relative;
-      border-radius: 16px;
-      background: radial-gradient(circle at 20% 0%, #e0edff, #bfdbfe, #93c5fd);
-      border: 1px solid #bfdbfe;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      padding: 6px;
-    }
-
-    .map-canvas::before {
-      content: "España · Comunidades autónomas (demo)";
-      position: absolute;
-      top: 8px;
-      left: 10px;
-      font-size: 0.72rem;
-      color: #1e293b;
-      opacity: 0.9;
-    }
-
-    .map-region {
-      position: absolute;
-      border-radius: 999px;
-      padding: 5px 9px;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: rgba(248,250,252,0.9);
-      color: #0f172a;
-      font-size: 0.76rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      box-shadow: 0 6px 14px rgba(15,23,42,0.18);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .map-region span {
-      font-size: 0.7rem;
-      color: #6b7280;
-    }
-
-    .map-region:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(15,23,42,0.22);
-      background: #ffffff;
-    }
-
-    .map-region.primary {
-      background: #2563eb;
-      color: #ffffff;
-      border-color: #1d4ed8;
-    }
-
-    .map-region.primary span { color: #e0edff; }
-
-    /* Posiciones aproximadas */
-    .region-ibiza     { left: 82%; top: 76%; }
-    .region-catalunya { left: 70%; top: 30%; }
-    .region-madrid    { left: 53%; top: 45%; }
-    .region-andalucia { left: 45%; top: 68%; }
-    .region-paisvasco { left: 48%; top: 24%; }
-    .region-valencia  { left: 63%; top: 50%; }
-
-    .region-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .region-pill {
-      border-radius: 999px;
-      padding: 5px 10px;
-      border: 1px solid var(--border);
-      font-size: 0.8rem;
-      background: #f9fafb;
-      color: #374151;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-
-    .region-pill.primary {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
-    }
-
-    .region-pill span {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .info-note {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-    /* Panel de destinos */
-    .dest-panel { display: none; margin-top: 18px; }
-    .dest-panel.active { display: block; }
-
-    .tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: #eff6ff;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(191, 219, 254, 0.9);
       color: #1d4ed8;
-      border: 1px solid #bfdbfe;
-      margin-bottom: 4px;
+      font-size: 0.75rem;
+      margin-bottom: 0.7rem;
     }
 
-    ul {
-      padding-left: 18px;
-      margin: 4px 0 6px;
+    .hero-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 26px;
+      padding: 1.4rem 1.4rem 1.15rem;
+      color: #e5e7eb;
+      box-shadow: 0 26px 60px rgba(15, 23, 42, 0.7);
+      position: relative;
+      overflow: hidden;
     }
 
-    li + li { margin-top: 2px; }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0, rgba(59, 130, 246, 0.3), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(34, 197, 94, 0.28), transparent 52%);
+      opacity: 0.7;
+    }
 
-    /* Switch plan gratuito / personalizado */
-    .mode-switch {
-      display: inline-flex;
-      gap: 6px;
-      padding: 3px;
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-chip {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 999px;
-      background: #eff1f7;
-      margin-top: 6px;
-    }
-
-    .mode-btn {
-      border-radius: 999px;
-      border: none;
-      padding: 6px 12px;
-      font-size: 0.82rem;
-      cursor: pointer;
-      background: transparent;
-      color: var(--muted);
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.7);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 0.35rem;
     }
 
-    .mode-btn.active {
-      background: #ffffff;
-      color: var(--text);
-      box-shadow: 0 4px 10px rgba(15,23,42,0.08);
+    .hero-chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.25);
     }
 
-    #ibz-basic, #ibz-custom { margin-top: 10px; }
+    .hero-destination {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
 
-    .pill-list {
+    .hero-bubble {
+      margin-top: 0.9rem;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 18px;
+      padding: 0.7rem 0.75rem;
+      font-size: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .hero-bubble span {
+      font-size: 1.1rem;
+    }
+
+    .hero-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
+      gap: 0.3rem;
+      margin-top: 0.7rem;
     }
 
-    .pill {
+    .hero-tag {
+      font-size: 0.7rem;
+      padding: 0.18rem 0.5rem;
       border-radius: 999px;
-      padding: 3px 8px;
-      border: 1px solid var(--border);
-      font-size: 0.78rem;
-      background: #f9fafb;
-      color: var(--muted);
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.6);
     }
 
-    footer {
-      border-top: 1px solid var(--border);
-      background: #ffffff;
-      padding: 14px 16px 18px;
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-align: center;
+    .hero-footer {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      color: #9ca3af;
     }
 
-    /* WIZARD DE CUESTIONARIO (pantalla completa) */
-    .wizard-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.7);
-      display: none;
+    .hero-footer strong {
+      color: #e5e7eb;
+    }
+
+    /* STEPS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 18px 32px rgba(148, 163, 184, 0.23);
+      font-size: 0.85rem;
+    }
+
+    .step-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      z-index: 40;
-      padding: 10px;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      background: rgba(37, 99, 235, 0.08);
     }
 
-    .wizard-backdrop.active { display: flex; }
-
-    .wizard {
-      max-width: 520px;
-      width: 100%;
-      background: #f9fafb;
-      border-radius: 24px;
-      box-shadow: 0 26px 60px rgba(15,23,42,0.6);
-      border: 1px solid var(--border);
-      padding: 14px 16px 16px;
-    }
-
-    .wizard-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .wizard-title {
-      font-size: 0.95rem;
+    .step-title {
       font-weight: 600;
-      color: var(--text);
+      margin-bottom: 0.2rem;
     }
 
-    .wizard-step-indicator {
-      font-size: 0.78rem;
+    .step-text {
+      font-size: 0.8rem;
       color: var(--muted);
     }
 
-    .wizard-close {
-      border: none;
-      background: transparent;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: var(--muted);
+    /* FORM */
+    .form-card {
+      margin-top: 1.75rem;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 26px;
+      padding: 1.5rem 1.35rem 1.6rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: var(--shadow);
     }
 
-    .wizard-steps-bar {
-      height: 4px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 10px;
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem 1.25rem;
+      margin-top: 1rem;
     }
 
-    .wizard-steps-bar-inner {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg,#2563eb,#22c55e);
-      transition: width 0.2s ease;
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.85rem;
     }
 
-    .wizard-step {
-      display: none;
+    .form-group-full {
+      grid-column: 1 / -1;
     }
 
-    .wizard-step.active {
-      display: block;
+    label {
+      font-weight: 500;
     }
 
-    .field {
-      margin-bottom: 10px;
+    label span {
+      color: #ef4444;
+      margin-left: 0.15rem;
     }
 
-    .field label {
-      display: block;
-      font-size: 0.86rem;
-      margin-bottom: 3px;
-      color: var(--text);
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
+    input,
     select,
     textarea {
-      width: 100%;
-      padding: 7px 8px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      font-size: 0.9rem;
-      background: #ffffff;
-      color: var(--text);
-      resize: vertical;
-      min-height: 32px;
-    }
-
-    textarea { min-height: 70px; }
-
-    .consent {
-      font-size: 0.78rem;
-      color: var(--muted);
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .consent input { margin-top: 2px; }
-
-    .wizard-footer {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .wizard-nav {
-      display: flex;
-      gap: 6px;
-    }
-
-    .btn-small {
       border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 6px 13px;
-      font-size: 0.8rem;
-      cursor: pointer;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      padding: 0.6rem 0.8rem;
+      font: inherit;
+      background: #f9fafb;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    textarea {
+      border-radius: 18px;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.3);
       background: #ffffff;
-      color: var(--muted);
     }
 
-    .btn-small.primary {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #ffffff;
-    }
-
-    .wizard-note {
+    .help {
       font-size: 0.75rem;
       color: var(--muted);
     }
 
-    .wizard-confirm {
-      margin-top: 8px;
+    .form-footer {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .security {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .security-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 0.85rem;
-      color: var(--accent);
+    }
+
+    .confirmation {
+      margin-top: 0.9rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 14px;
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      font-size: 0.78rem;
+      color: #166534;
       display: none;
     }
 
-    @media (max-width: 720px) {
-      .layout {
-        grid-template-columns: 1fr;
+    .confirmation.show {
+      display: block;
+    }
+
+    .confirmation strong {
+      font-weight: 600;
+    }
+
+    .email-highlight {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* MAP */
+    .map-card {
+      margin-top: 2.2rem;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 24px;
+      padding: 1.25rem 1.35rem 1.3rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 20px 40px rgba(148, 163, 184, 0.25);
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .map-header p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .map-wrapper {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      background: #e5e7eb;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 320px;
+      border: 0;
+      display: block;
+    }
+
+    /* FOOTER */
+    footer {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.25rem 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 2px;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .steps {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      header {
+        border-bottom-width: 0;
+      }
+
+      main {
+        padding-top: 1.1rem;
       }
     }
 
-    @media (max-width: 520px) {
-      .hero {
-        padding-top: 16px;
+    @media (max-width: 480px) {
+      .hero-card {
+        padding: 1.1rem 1rem;
       }
-      .wizard {
-        height: auto;
-        max-height: 90vh;
-        overflow: auto;
-        border-radius: 18px;
+      .map-wrapper iframe {
+        height: 260px;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-logo"></div>
+    <nav class="nav">
+      <div class="logo">
+        <div class="logo-icon">ES</div>
         <div>
-          <div class="brand-text-main">VIAJES ESPAÑA IA</div>
-          <div class="brand-text-sub">Mapa de España · Plan básico · Plan a medida</div>
+          <div>Explorando España</div>
+          <small style="font-size:0.7rem; color:var(--muted);">Viajes personalizados en 24h</small>
         </div>
       </div>
-      <div class="header-cta">
-        <a href="#mapa">🗺️ Ver mapa de España</a>
+      <div class="nav-links">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#cuestionario" class="nav-cta">
+          Empieza ahora <span>➜</span>
+        </a>
       </div>
-    </div>
+    </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-top">
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-label="Presentación">
       <div>
         <div class="hero-badge">
-          <span>✨</span>
-          <span>Prueba de concepto · Viajes personalizados por España</span>
+          <span>✨</span> Planes creados uno a uno por una persona, con ayuda de IA
         </div>
-        <h1>Diseña el mejor viaje posible, empezando por Ibiza</h1>
-        <p class="lead">
-          Una página sencilla e interactiva para que cualquier persona pueda elegir destino,
-          ver un plan básico gratuito y, si quiere algo más exclusivo, rellenar un cuestionario
-          muy fácil que tú recibirás por correo para crear un PDF de lujo en menos de 24 horas.
+        <h1 class="hero-title">
+          Tu viaje perfecto por España,
+          <span>diseñado para ti</span>.
+        </h1>
+        <p class="hero-text">
+          Rellena un cuestionario rápido y en menos de 24 horas recibirás en tu correo
+          un itinerario bonito y claro para tus días de viaje por España.
         </p>
         <div class="hero-actions">
-          <button class="btn btn-primary" onclick="document.getElementById('mapa').scrollIntoView({behavior:'smooth'})">
-            🗺️ Explorar España
-          </button>
-          <button class="btn btn-ghost" onclick="document.getElementById('dest-ibiza').scrollIntoView({behavior:'smooth'})">
-            🌴 Ir directamente a Ibiza
-          </button>
+          <a href="#cuestionario" class="btn-primary">
+            Empezar cuestionario <span>✈️</span>
+          </a>
+          <a href="#mapa" class="btn-secondary">
+            Ver zonas y mapa <span>🗺️</span>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <main>
-    <!-- MAPA ESPAÑA -->
-    <section id="mapa">
-      <div class="layout">
-        <div class="card">
-          <h2>Mapa de España (demo visual)</h2>
-          <p style="margin-top:4px;">
-            Haz clic en Ibiza para ver cómo funcionará el sistema: plan básico visible para todos
-            y plan a medida a través de un cuestionario muy simple.
-          </p>
-          <div class="map-canvas">
-            <button class="map-region region-ibiza primary" data-dest="ibiza">
-              🌴 Ibiza
-              <span>Plan gratis + a medida</span>
-            </button>
-
-            <button class="map-region region-catalunya" data-dest="catalunya">
-              🏙️ Catalunya
-              <span>Próximamente</span>
-            </button>
-
-            <button class="map-region region-madrid" data-dest="madrid">
-              🌆 Madrid
-              <span>Próximamente</span>
-            </button>
-
-            <button class="map-region region-andalucia" data-dest="andalucia">
-              ☀️ Andalucía
-              <span>Próximamente</span>
-            </button>
-
-            <button class="map-region region-paisvasco" data-dest="pais-vasco">
-              🌊 País Vasco
-              <span>Próximamente</span>
-            </button>
-
-            <button class="map-region region-valencia" data-dest="valencia">
-              🌴 C. Valenciana
-              <span>Próximamente</span>
-            </button>
+      <aside class="hero-card" aria-hidden="true">
+        <div class="hero-card-inner">
+          <div class="hero-card-header">
+            <div>
+              <div style="font-size:0.8rem; color:#9ca3af;">Ejemplo de viaje generado</div>
+              <div class="hero-destination">5 días por la Costa Brava</div>
+            </div>
+            <div class="hero-chip">
+              <span class="hero-chip-dot"></span> IA + toque humano
+            </div>
+          </div>
+          <div class="hero-bubble">
+            <span>🤖</span>
+            <div>
+              «Salida desde Barcelona, pueblos con encanto, calas tranquilas y
+              restaurantes con vistas. Sin coche el día 3 para descansar en la playa.»
+            </div>
+          </div>
+          <div class="hero-tags">
+            <div class="hero-tag">Pareja</div>
+            <div class="hero-tag">Presupuesto medio</div>
+            <div class="hero-tag">Alojamiento boutique</div>
+            <div class="hero-tag">Ritmo relajado</div>
+          </div>
+          <div class="hero-footer">
+            <div>
+              Plan listo en <strong>&lt; 24h</strong>
+            </div>
+            <div>
+              Entrega en PDF listo para enviar 💌
+            </div>
           </div>
         </div>
+      </aside>
+    </section>
 
-        <div class="card">
-          <h2>Elige comunidad autónoma</h2>
-          <p style="margin-top:4px;">
-            De momento, solo Ibiza (Islas Baleares) está activa como ejemplo completo.
-            El resto se puede ir activando más adelante siguiendo el mismo modelo.
-          </p>
-          <div class="region-list">
-            <button class="region-pill primary" data-dest="ibiza">🌴 Ibiza (Islas Baleares)</button>
-            <span class="region-pill">🏙️ Catalunya <span>(próximamente)</span></span>
-            <span class="region-pill">🌆 Comunidad de Madrid <span>(próximamente)</span></span>
-            <span class="region-pill">☀️ Andalucía <span>(próximamente)</span></span>
-            <span class="region-pill">🌊 País Vasco <span>(próximamente)</span></span>
-            <span class="region-pill">🌴 Comunidad Valenciana <span>(próximamente)</span></span>
+    <!-- CÓMO FUNCIONA -->
+    <section id="como-funciona" class="section">
+      <h2 class="section-title">Cómo funciona</h2>
+      <p class="section-subtitle">
+        Menos texto, más claridad: solo tres pasos.
+      </p>
+
+      <div class="steps">
+        <article class="step-card">
+          <div class="step-icon">1</div>
+          <div class="step-title">Cuestionario rápido</div>
+          <div class="step-text">
+            Cuéntame desde dónde sales, presupuesto, días y estilo de viaje.
           </div>
-          <p class="info-note">
-            Haz clic en <strong>Ibiza</strong> para ver el flujo completo: plan básico + cuestionario
-            a medida con envío de respuestas a tu correo.
-          </p>
-        </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-icon">2</div>
+          <div class="step-title">Creo tu plan</div>
+          <div class="step-text">
+            Uso IA y mi experiencia viajando por España para montar un itinerario
+            coherente, realista y bonito.
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-icon">3</div>
+          <div class="step-title">Te lo envío en 24h</div>
+          <div class="step-text">
+            Recibes un PDF elegante con el plan completo listo para reenviar a tu cliente o acompañante.
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- IBIZA -->
-    <section id="dest-ibiza" class="dest-panel active">
-      <div class="card">
-        <span class="tag">Ejemplo real</span>
-        <h2>🌴 Ibiza · Plan básico y plan a medida</h2>
-        <p>
-          Aquí se ve exactamente lo que quieres construir: un plan básico que todo el mundo puede consultar
-          y un plan personalizado donde la persona rellena un cuestionario sencillo. Tú recibes las respuestas
-          por correo para preparar un PDF bonito y exclusivo.
+    <!-- FORMULARIO -->
+    <section id="cuestionario" class="section">
+      <div class="form-card">
+        <h2 class="section-title">Cuestionario de viaje</h2>
+        <p class="section-subtitle">
+          Tardarás unos 3 minutos. Cuanto más claro seas, mejor podré ajustar tu plan.
         </p>
-        <div class="mode-switch" aria-label="Seleccionar modo">
-          <button class="mode-btn active" data-mode="basic">💡 Plan básico</button>
-          <button class="mode-btn" data-mode="custom">🤵‍♀️ Plan a medida</button>
+
+        <form id="viaje-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Tu nombre<span>*</span></label>
+              <input id="nombre" name="Nombre" type="text" required placeholder="Ej. Laura" />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Correo para recibir el plan<span>*</span></label>
+              <input id="email" name="Email" type="email" required placeholder="tu@email.com" />
+            </div>
+
+            <div class="form-group">
+              <label for="origen">Ciudad o zona de salida<span>*</span></label>
+              <input id="origen" name="Ciudad de salida" type="text" required placeholder="Ej. Málaga, Madrid..." />
+            </div>
+
+            <div class="form-group">
+              <label for="zona">Zona de España que te apetece más</label>
+              <select id="zona" name="Zona preferida">
+                <option value="">Me adapto, sorpréndeme</option>
+                <option value="norte">Norte (Galicia, Asturias, Cantabria, País Vasco...)</option>
+                <option value="costa-mediterranea">Costa Mediterránea</option>
+                <option value="islas">Islas (Baleares, Canarias)</option>
+                <option value="interior">Interior y ciudades</option>
+                <option value="andalucia">Andalucía</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="dias">¿Cuántos días quieres viajar?<span>*</span></label>
+              <input id="dias" name="Número de días" type="number" min="1" max="30" required placeholder="Ej. 5" />
+            </div>
+
+            <div class="form-group">
+              <label for="fechas">Fechas aproximadas</label>
+              <input id="fechas" name="Fechas aproximadas" type="text" placeholder="Ej. primera semana de junio" />
+            </div>
+
+            <div class="form-group">
+              <label for="tipo">Tipo de viaje<span>*</span></label>
+              <select id="tipo" name="Tipo de viaje" required>
+                <option value="">Selecciona una opción</option>
+                <option value="pareja">Pareja</option>
+                <option value="familia">Familia</option>
+                <option value="amigos">Amigos</option>
+                <option value="solo">Solo/a</option>
+                <option value="grupo">Grupo organizado</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="presupuesto">Presupuesto por persona (aprox.)<span>*</span></label>
+              <select id="presupuesto" name="Presupuesto aproximado" required>
+                <option value="">Elige un rango</option>
+                <option value="economico">Económico</option>
+                <option value="medio">Medio</option>
+                <option value="alto">Más especial / alto</option>
+              </select>
+              <p class="help">No hace falta que sea exacto, solo para orientar el tipo de hoteles y actividades.</p>
+            </div>
+
+            <div class="form-group">
+              <label for="ritmo">Ritmo de viaje<span>*</span></label>
+              <select id="ritmo" name="Ritmo de viaje" required>
+                <option value="">Selecciona</option>
+                <option value="relajado">Tranquilo, con tiempo para descansar</option>
+                <option value="mixto">Mixto: algo de visitas, algo de relax</option>
+                <option value="intenso">Intenso, quiero aprovechar cada día</option>
+              </select>
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="intereses">¿Qué te gustaría que incluyera el plan?</label>
+              <textarea id="intereses" name="Intereses y preferencias" placeholder="Playas, naturaleza, pueblos bonitos, gastronomía, fiesta, museos…"></textarea>
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="extra">Algo importante que deba saber</label>
+              <textarea id="extra" name="Detalles adicionales" placeholder="Viajas con niños, alergias, movilidad reducida, lugares que quieres sí o sí…"></textarea>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="btn-primary">
+              Enviar cuestionario y crear plan <span>🚀</span>
+            </button>
+            <div class="security">
+              <div class="security-icon">🔒</div>
+              <div>
+                Tus datos se usan solo para crear tu itinerario. En máximo 24h tendrás noticias.
+              </div>
+            </div>
+          </div>
+
+          <div id="confirmation" class="confirmation">
+            <strong>¡Cuestionario enviado!</strong><br />
+            En un máximo de 24 horas recibirás tu propuesta de viaje personalizada en el correo que has indicado.
+            <br /><br />
+            Si no te llega nada, puedes escribirme a
+            <span class="email-highlight">tuemail@tudominio.com</span>
+            indicando tu nombre y la fecha en la que rellenaste el formulario.
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- MAPA -->
+    <section id="mapa" class="section">
+      <div class="map-card">
+        <div class="map-header">
+          <div>
+            <h2 class="section-title">Mapa de inspiración</h2>
+            <p>
+              Una vista general de España para que sitúes tus próximos viajes.
+              El plan final se adaptará a tu origen, días y presupuesto.
+            </p>
+          </div>
         </div>
 
-        <!-- PLAN BÁSICO -->
-        <div id="ibz-basic">
-          <div style="margin-top:10px;">
-            <h3>Zonas y alojamientos por presupuesto</h3>
-            <ul>
-              <li><strong>Presupuesto bajo:</strong> hostales tipo Ceibo Ibiza, Hostal Giramundo, Hostal Juanita en Ibiza ciudad; opciones sencillas en Es Canar.</li>
-              <li><strong>Presupuesto medio:</strong> hoteles 3–4★ cerca de Ibiza ciudad, San Antonio o Playa d’en Bossa.</li>
-              <li><strong>Presupuesto alto:</strong> hoteles club como Destino Five Ibiza, o grandes resorts en Playa d’en Bossa.</li>
-              <li><strong>Lujo:</strong> Six Senses Ibiza y villas privadas en zonas tranquilas del norte.</li>
-            </ul>
-          </div>
-          <div style="margin-top:8px;">
-            <h3>Planes típicos que funcionan muy bien</h3>
-            <ul>
-              <li><strong>Calas + atardecer:</strong> zona oeste (Es Vedrà, San Antonio) para puestas de sol espectaculares.</li>
-              <li><strong>Playas tranquilas:</strong> norte y este de la isla (Portinatx, zonas cerca de Santa Eulalia).</li>
-              <li><strong>Excursión a Formentera:</strong> ferry ida y vuelta en el día, muy habitual.</li>
-              <li><strong>Boat trips:</strong> salidas en barco desde San Antonio o Ibiza ciudad con paradas para baño y snorkel.</li>
-              <li><strong>Fiesta:</strong> grandes discotecas como Ushuaïa, Hï Ibiza, Pacha, Amnesia (en temporada), y beach clubs de tarde.</li>
-            </ul>
-          </div>
+        <div class="map-wrapper">
+          <iframe
+           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3131347.2728260276!2d-4.988733138181672!3d39.964729261987124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc42e3783261bc8b%3A0xa6ec2c940768a3ec!2zRXNwYcOxYQ!5e0!3m2!1ses!2ses!4v1764702748650!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+           </iframe>
         </div>
-
-        <!-- PLAN A MEDIDA -->
-        <div id="ibz-custom" style="display:none; margin-top:8px;">
-          <h3>Plan a medida con revisión manual</h3>
-          <p>
-            Si alguien quiere algo muy ajustado, puede rellenar un cuestionario guiado en pantalla completa (pocas
-            preguntas por paso). Al terminar:
-          </p>
-          <div class="pill-list">
-            <span class="pill">📩 Sus respuestas se preparan en un correo</span>
-            <span class="pill">🔒 El correo va directamente a tu bandeja privada</span>
-            <span class="pill">🕒 El usuario verá que recibirá el plan en máximo 1 día</span>
-          </div>
-          <p style="margin-top:8px;">
-            Tú solo tienes que abrir ese correo, crear un PDF con un diseño elegante y responder al cliente desde tu
-            cuenta corporativa.
-          </p>
-          <button class="btn btn-primary" id="open-wizard" style="margin-top:6px;">
-            ✍️ Empezar cuestionario para Ibiza
-          </button>
-          <p style="margin-top:8px; font-size:0.8rem; color:var(--muted);">
-            Si al cliente no le llega tu respuesta, aquí se muestra siempre el correo de contacto:
-            <strong><a href="mailto:tu-email-corporativo@tudominio.com">tu-email-corporativo@tudominio.com</a></strong>.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Otros destinos (placeholder) -->
-    <section id="dest-catalunya" class="dest-panel">
-      <div class="card">
-        <span class="tag">Próximamente</span>
-        <h2>🏙️ Catalunya</h2>
-        <p>Aquí podrías repetir el modelo con Barcelona, Costa Brava, Pirineos, etc.</p>
-      </div>
-    </section>
-
-    <section id="dest-madrid" class="dest-panel">
-      <div class="card">
-        <span class="tag">Próximamente</span>
-        <h2>🌆 Comunidad de Madrid</h2>
-        <p>Planes urbanos, cultura, gastronomía y ocio nocturno.</p>
-      </div>
-    </section>
-
-    <section id="dest-andalucia" class="dest-panel">
-      <div class="card">
-        <span class="tag">Próximamente</span>
-        <h2>☀️ Andalucía</h2>
-        <p>Sevilla, Málaga, Granada, costa y pueblos blancos.</p>
-      </div>
-    </section>
-
-    <section id="dest-pais-vasco" class="dest-panel">
-      <div class="card">
-        <span class="tag">Próximamente</span>
-        <h2>🌊 País Vasco</h2>
-        <p>Gastronomía, naturaleza y ciudades como Bilbao y Donostia.</p>
-      </div>
-    </section>
-
-    <section id="dest-valencia" class="dest-panel">
-      <div class="card">
-        <span class="tag">Próximamente</span>
-        <h2>🌴 Comunidad Valenciana</h2>
-        <p>Valencia, Alicante, Castellón, costa y fiestas.</p>
       </div>
     </section>
   </main>
 
   <footer>
-    Demo de concepto · Viajes España IA · Para producción, conecta esto a un backend con IA y revisa textos legales y privacidad con un profesional.
+    <div>© <span id="year"></span> Explorando España · Todos los derechos reservados.</div>
+    <div>
+      Contacto: <a href="mailto:tuemail@tudominio.com">tuemail@tudominio.com</a>
+    </div>
   </footer>
 
-  <!-- WIZARD DE CUESTIONARIO -->
-  <div class="wizard-backdrop" id="wizard-backdrop" aria-hidden="true">
-    <div class="wizard" role="dialog" aria-modal="true" aria-labelledby="wizard-title">
-      <div class="wizard-header">
-        <div>
-          <div class="wizard-title" id="wizard-title">Cuestionario para tu viaje a Ibiza</div>
-          <div class="wizard-step-indicator">
-            Paso <span id="wizard-step-num">1</span> de <span id="wizard-step-total">4</span>
-          </div>
-        </div>
-        <button class="wizard-close" id="wizard-close" aria-label="Cerrar">×</button>
-      </div>
-      <div class="wizard-steps-bar">
-        <div class="wizard-steps-bar-inner" id="wizard-progress"></div>
-      </div>
-
-      <form id="wizard-form">
-        <!-- PASO 1: Datos básicos -->
-        <div class="wizard-step" data-step="1">
-          <div class="field">
-            <label for="w-nombre">Tu nombre</label>
-            <input type="text" id="w-nombre" name="nombre" required />
-          </div>
-          <div class="field">
-            <label for="w-email">Tu email (donde recibirás el PDF)</label>
-            <input type="email" id="w-email" name="email" required />
-          </div>
-          <div class="field">
-            <label for="w-origen">Ciudad / país de origen</label>
-            <input type="text" id="w-origen" name="origen" required />
-          </div>
-        </div>
-
-        <!-- PASO 2: Fechas y grupo -->
-        <div class="wizard-step" data-step="2">
-          <div class="field">
-            <label for="w-dias">¿Cuántos días quieres viajar a Ibiza?</label>
-            <input type="number" id="w-dias" name="dias" min="1" max="30" required />
-          </div>
-          <div class="field">
-            <label for="w-personas">Número total de personas</label>
-            <input type="number" id="w-personas" name="personas" min="1" max="20" required />
-          </div>
-          <div class="field">
-            <label for="w-perfil">¿Con quién viajas?</label>
-            <select id="w-perfil" name="perfil" required>
-              <option value="">Selecciona una opción</option>
-              <option value="pareja">En pareja</option>
-              <option value="amigos">Con amigos</option>
-              <option value="familia">En familia</option>
-              <option value="solo">Viaje individual</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- PASO 3: Estilo del viaje -->
-        <div class="wizard-step" data-step="3">
-          <div class="field">
-            <label for="w-energia">¿Cómo quieres que sea el ritmo del viaje?</label>
-            <select id="w-energia" name="energia" required>
-              <option value="">Selecciona una opción</option>
-              <option value="muytranquilo">Muy tranquilo (descanso total)</option>
-              <option value="tranquilo">Tranquilo (calas y algún plan suave)</option>
-              <option value="equilibrado">Equilibrado (algo de fiesta y algo de relax)</option>
-              <option value="intenso">Intenso (mucha fiesta / actividad)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="w-presupuesto">Presupuesto aproximado por persona (sin vuelos)</label>
-            <select id="w-presupuesto" name="presupuesto" required>
-              <option value="">Selecciona una opción</option>
-              <option value="bajo">Ajustado</option>
-              <option value="medio">Medio</option>
-              <option value="alto">Cómodo / alto</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="w-asistencia">¿Necesitas actividades adaptadas o asistencia especial?</label>
-            <select id="w-asistencia" name="asistencia" required>
-              <option value="">Selecciona una opción</option>
-              <option value="no">No</option>
-              <option value="movilidad">Sí, movilidad reducida</option>
-              <option value="sensorial">Sí, adaptación sensorial</option>
-              <option value="salud">Sí, condición médica relevante</option>
-              <option value="otros">Otros</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- PASO 4: Intereses y consentimiento -->
-        <div class="wizard-step" data-step="4">
-          <div class="field">
-            <label for="w-intereses">¿Qué te apetece? (cuéntalo con tus palabras)</label>
-            <textarea id="w-intereses" name="intereses" placeholder="Ej: algo de fiesta pero también calas tranquilas, un día en barco, un buen restaurante..."></textarea>
-          </div>
-          <div class="consent">
-            <input type="checkbox" id="w-consent" required />
-            <label for="w-consent">
-              Acepto que mis datos se utilicen para que se prepare un plan personalizado de viaje a Ibiza y se me envíe
-              por email. Entiendo que lo recibiré en un máximo de 1 día.
-            </label>
-          </div>
-        </div>
-
-        <div class="wizard-footer">
-          <div class="wizard-note">
-            Tras terminar, se abrirá un correo preparado con tus respuestas. Solo tendrás que pulsar “Enviar”.
-          </div>
-          <div class="wizard-nav">
-            <button type="button" class="btn-small" id="wizard-prev">Atrás</button>
-            <button type="button" class="btn-small primary" id="wizard-next">Siguiente</button>
-            <button type="submit" class="btn-small primary" id="wizard-submit" style="display:none;">Enviar cuestionario</button>
-          </div>
-        </div>
-
-        <div class="wizard-confirm" id="wizard-confirm">
-          ¡Perfecto! Se ha preparado un correo con tu cuestionario.
-          En cuanto lo envíes, recibirás tu plan en un máximo de 1 día.
-          Si no te llega, escribe a
-          <strong><a href="mailto:tu-email-corporativo@tudominio.com">tu-email-corporativo@tudominio.com</a></strong>.
-        </div>
-      </form>
-    </div>
-  </div>
-
   <script>
-    // -------------------------
-    // Cambio de destino (mapa / lista)
-    // -------------------------
-    const destPanels = document.querySelectorAll('.dest-panel');
-    const mapRegions = document.querySelectorAll('.map-region[data-dest]');
-    const regionPills = document.querySelectorAll('.region-pill[data-dest]');
+    // Cambia este correo por el tuyo
+    const FORM_EMAIL = "contacto.adriangilj@gmail.com";
 
-    function showDestination(dest) {
-      destPanels.forEach(panel => {
-        panel.classList.toggle('active', panel.id === 'dest-' + dest);
-      });
-      const target = document.getElementById('dest-' + dest);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.getElementById("viaje-form");
+    const confirmation = document.getElementById("confirmation");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const data = new FormData(form);
+      let body = "Nuevo cuestionario de viaje desde la web:\n\n";
+
+      for (const [key, value] of data.entries()) {
+        body += `${key}: ${value}\n`;
       }
-    }
 
-    [...mapRegions, ...regionPills].forEach(btn => {
-      btn.addEventListener('click', () => {
-        const dest = btn.getAttribute('data-dest');
-        if (dest) showDestination(dest);
+      // Enviará los datos abriendo el cliente de correo hacia tu email
+      const mailtoLink = `mailto:${FORM_EMAIL}?subject=${encodeURIComponent(
+        "Nuevo cuestionario de viaje desde la web"
+      )}&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailtoLink;
+
+      form.reset();
+      confirmation.classList.add("show");
+      window.scrollTo({
+        top: form.offsetTop - 120,
+        behavior: "smooth",
       });
     });
-
-    // -------------------------
-    // Switch plan básico / a medida (Ibiza)
-    // -------------------------
-    const modeButtons = document.querySelectorAll('.mode-btn');
-    const ibzBasic = document.getElementById('ibz-basic');
-    const ibzCustom = document.getElementById('ibz-custom');
-
-    modeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const mode = btn.getAttribute('data-mode');
-        modeButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        if (mode === 'basic') {
-          ibzBasic.style.display = 'block';
-          ibzCustom.style.display = 'block'; // mostramos ambos, pero el foco está en básico
-          ibzCustom.style.display = 'none';
-        } else {
-          ibzBasic.style.display = 'none';
-          ibzCustom.style.display = 'block';
-        }
-      });
-    });
-
-    // Ajuste inicial: mostrar básico
-    ibzBasic.style.display = 'block';
-    ibzCustom.style.display = 'none';
-
-    // -------------------------
-    // Wizard (cuestionario paso a paso)
-    // -------------------------
-    const wizardBackdrop = document.getElementById('wizard-backdrop');
-    const openWizardBtn = document.getElementById('open-wizard');
-    const closeWizardBtn = document.getElementById('wizard-close');
-    const wizardForm = document.getElementById('wizard-form');
-    const wizardSteps = wizardForm ? Array.from(wizardForm.querySelectorAll('.wizard-step')) : [];
-    const wizardStepNumEl = document.getElementById('wizard-step-num');
-    const wizardStepTotalEl = document.getElementById('wizard-step-total');
-    const wizardPrev = document.getElementById('wizard-prev');
-    const wizardNext = document.getElementById('wizard-next');
-    const wizardSubmit = document.getElementById('wizard-submit');
-    const wizardProgress = document.getElementById('wizard-progress');
-    const wizardConfirm = document.getElementById('wizard-confirm');
-    let currentStep = 0;
-
-    if (wizardStepTotalEl) wizardStepTotalEl.textContent = String(wizardSteps.length);
-
-    function updateWizardUI() {
-      wizardSteps.forEach((step, idx) => {
-        step.classList.toggle('active', idx === currentStep);
-      });
-      if (wizardStepNumEl) wizardStepNumEl.textContent = String(currentStep + 1);
-      if (wizardPrev) wizardPrev.style.display = currentStep === 0 ? 'none' : 'inline-flex';
-      if (wizardNext) wizardNext.style.display = currentStep === wizardSteps.length - 1 ? 'none' : 'inline-flex';
-      if (wizardSubmit) wizardSubmit.style.display = currentStep === wizardSteps.length - 1 ? 'inline-flex' : 'none';
-      if (wizardProgress && wizardSteps.length > 0) {
-        const percent = ((currentStep + 1) / wizardSteps.length) * 100;
-        wizardProgress.style.width = percent + '%';
-      }
-    }
-
-    function validateCurrentStep() {
-      const step = wizardSteps[currentStep];
-      if (!step) return true;
-      const inputs = step.querySelectorAll('input, select, textarea');
-      for (const el of inputs) {
-        if (!el.checkValidity()) {
-          el.reportValidity();
-          return false;
-        }
-      }
-      return true;
-    }
-
-    function resetWizard() {
-      currentStep = 0;
-      wizardConfirm.style.display = 'none';
-      wizardForm.reset();
-      updateWizardUI();
-    }
-
-    if (openWizardBtn && wizardBackdrop) {
-      openWizardBtn.addEventListener('click', () => {
-        wizardBackdrop.classList.add('active');
-        wizardBackdrop.setAttribute('aria-hidden', 'false');
-        resetWizard();
-      });
-    }
-
-    if (closeWizardBtn && wizardBackdrop) {
-      closeWizardBtn.addEventListener('click', () => {
-        wizardBackdrop.classList.remove('active');
-        wizardBackdrop.setAttribute('aria-hidden', 'true');
-      });
-    }
-
-    if (wizardBackdrop) {
-      wizardBackdrop.addEventListener('click', (e) => {
-        if (e.target === wizardBackdrop) {
-          wizardBackdrop.classList.remove('active');
-          wizardBackdrop.setAttribute('aria-hidden', 'true');
-        }
-      });
-    }
-
-    if (wizardPrev) {
-      wizardPrev.addEventListener('click', () => {
-        if (currentStep > 0) {
-          currentStep -= 1;
-          updateWizardUI();
-        }
-      });
-    }
-
-    if (wizardNext) {
-      wizardNext.addEventListener('click', () => {
-        if (!validateCurrentStep()) return;
-        if (currentStep < wizardSteps.length - 1) {
-          currentStep += 1;
-          updateWizardUI();
-        }
-      });
-    }
-
-    if (wizardForm) {
-      updateWizardUI();
-
-      wizardForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (!validateCurrentStep()) return;
-
-        const data = new FormData(wizardForm);
-        const nombre = data.get('nombre') || '';
-        const email = data.get('email') || '';
-        const origen = data.get('origen') || '';
-        const dias = data.get('dias') || '';
-        const personas = data.get('personas') || '';
-        const perfil = data.get('perfil') || '';
-        const energia = data.get('energia') || '';
-        const presupuesto = data.get('presupuesto') || '';
-        const asistencia = data.get('asistencia') || '';
-        const intereses = data.get('intereses') || '';
-
-        if (!nombre || !email || !origen || !dias || !personas || !perfil || !energia || !presupuesto || !asistencia) {
-          // Por si acaso no ha validado algo
-          return;
-        }
-
-        const texto = `
-Nuevo cuestionario recibido – Ibiza
-
-Nombre: ${nombre}
-Email de la persona: ${email}
-Origen: ${origen}
-
-Duración del viaje (días): ${dias}
-Número de personas: ${personas}
-Tipo de viaje (perfil): ${perfil}
-Nivel de energía deseado: ${energia}
-Presupuesto por persona (sin vuelos): ${presupuesto}
-Necesidad de asistencia/adaptación: ${asistencia}
-
-Intereses / comentarios:
-${intereses || '(no especificado)'}
-
-Acción para ti:
-Crea un PDF bonito, claro y lujoso con este perfil de viaje a Ibiza y envíalo a esta persona en un máximo de 24 horas.
-Puedes incluir:
-- recomendación de zona y alojamientos,
-- propuesta de itinerario por días,
-- actividades adaptadas a su perfil y presupuesto,
-- enlaces a hoteles / actividades / fiestas para reservar.
-        `;
-
-        // ⚠️ CAMBIA ESTE CORREO POR TU CORREO REAL
-        const destinatario = 'miagenciaibiza@gmail.com';
-        const asunto = encodeURIComponent('Nuevo cuestionario Ibiza – Viajes España IA');
-        const cuerpo = encodeURIComponent(texto);
-
-        window.location.href = `mailto:${destinatario}?subject=${asunto}&body=${cuerpo}`;
-
-        wizardConfirm.style.display = 'block';
-      });
-    }
-
-    // Inicialmente mostrar Ibiza
-    showDestination('ibiza');
   </script>
 </body>
 </html>
