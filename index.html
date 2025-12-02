@@ -3,1023 +3,910 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Viajes España IA | Tu viaje perfecto por España</title>
+  <title>Explorando España</title>
+
+  <!-- Librería para generar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
     :root {
-      --primary: #2563eb;
-      --primary-soft: #dbeafe;
-      --accent: #16a34a;
-      --bg: #f4f4f7;
-      --text: #0f172a;
-      --muted: #6b7280;
-      --card: #ffffff;
-      --border: #e5e7eb;
-      --radius: 16px;
-      --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      --bg: #FDF5E6;          /* arena suave */
+      --text: #1C3D5A;        /* azul mar */
+      --accent: #77C9D4;      /* turquesa */
+      --accent-dark: #57A99A; /* verde palmera */
+      --success: #D4FFD8;     /* verde suave éxito */
+      --card: #FFFFFF;
+      --shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
 
     * {
       box-sizing: border-box;
-      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e5edff 0, #f4f4f7 45%, #e5e7eb 100%);
+      font-family: Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      text-align: center;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
+    h1 {
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
 
-    /* HEADER */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(248, 250, 252, 0.85);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+    p.subtitle {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 14px;
+      opacity: 0.8;
     }
 
-    .nav {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 0.75rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+    button {
+      padding: 14px 26px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: conic-gradient(from 160deg, #2563eb, #22c55e, #eab308, #2563eb);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f9fafb;
-      font-size: 0.8rem;
-      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.4);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.85rem;
-    }
-
-    .nav-links a {
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      color: var(--muted);
-      border: 1px solid transparent;
-    }
-
-    .nav-links a:hover {
-      border-color: var(--border);
-      background: rgba(255, 255, 255, 0.9);
+    #freePlanBtn {
+      background: #E9DAC4;
       color: var(--text);
     }
 
-    .nav-cta {
-      padding: 0.45rem 0.95rem;
-      border-radius: 999px;
-      border: none;
-      background: #111827;
-      color: #f9fafb;
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.45);
+    #personalPlanBtn {
+      background: var(--accent);
+      color: #ffffff;
     }
 
-    .nav-cta span {
-      font-size: 1rem;
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
     }
 
-    /* LAYOUT */
-    main {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 1.75rem 1.25rem 3rem;
-    }
-
-    .section {
-      margin-top: 2rem;
-    }
-
-    .section-title {
-      font-size: 1.35rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-subtitle {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    /* HERO */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 2rem;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2.1rem, 4vw, 2.6rem);
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 0.8rem;
-    }
-
-   .hero-title span {
-  background: linear-gradient(120deg, #2563eb, #22c55e);
-  -webkit-background-clip: text; /* Compatibilidad con Safari/iOS */
-  background-clip: text;         /* Propiedad estándar recomendada */
-  color: transparent;
-}
-
-
-    .hero-text {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-bottom: 1.2rem;
-      max-width: 30rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    .btn-primary {
-      border-radius: 999px;
-      border: none;
-      padding: 0.8rem 1.4rem;
-      background: #111827;
-      color: #f9fafb;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      font-size: 0.95rem;
-    }
-
-    .btn-secondary {
-      border-radius: 999px;
-      padding: 0.75rem 1.2rem;
-      border: 1px dashed rgba(148, 163, 184, 0.9);
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--muted);
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(37, 99, 235, 0.08);
-      border: 1px solid rgba(191, 219, 254, 0.9);
-      color: #1d4ed8;
-      font-size: 0.75rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .hero-card {
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: 26px;
-      padding: 1.4rem 1.4rem 1.15rem;
-      color: #e5e7eb;
-      box-shadow: 0 26px 60px rgba(15, 23, 42, 0.7);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 10% 0, rgba(59, 130, 246, 0.3), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(34, 197, 94, 0.28), transparent 52%);
-      opacity: 0.7;
-    }
-
-    .hero-card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-    }
-
-    .hero-chip {
-      font-size: 0.7rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .hero-chip-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.25);
-    }
-
-    .hero-destination {
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .hero-bubble {
-      margin-top: 0.9rem;
-      background: rgba(15, 23, 42, 0.8);
-      border-radius: 18px;
-      padding: 0.7rem 0.75rem;
-      font-size: 0.8rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      display: flex;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
-
-    .hero-bubble span {
-      font-size: 1.1rem;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      margin-top: 0.7rem;
-    }
-
-    .hero-tag {
-      font-size: 0.7rem;
-      padding: 0.18rem 0.5rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .hero-footer {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.7rem;
-      color: #9ca3af;
-    }
-
-    .hero-footer strong {
-      color: #e5e7eb;
-    }
-
-    /* STEPS */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 1.25rem;
-    }
-
-    .step-card {
-      background: rgba(255, 255, 255, 0.96);
-      border-radius: var(--radius);
-      padding: 0.9rem 1rem;
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      box-shadow: 0 18px 32px rgba(148, 163, 184, 0.23);
-      font-size: 0.85rem;
-    }
-.plans {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 1.25rem;
-}
-
-.plan-card {
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: var(--radius);
-  padding: 1.1rem 1.2rem;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 18px 32px rgba(148, 163, 184, 0.18);
-  font-size: 0.85rem;
-}
-
-.plan-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  margin-bottom: 0.4rem;
-}
-
-.plan-tag.free {
-  background: #ecfdf5;
-  color: #166534;
-  border: 1px solid #bbf7d0;
-}
-
-.plan-tag.paid {
-  background: #eff6ff;
-  color: #1d4ed8;
-  border: 1px solid #bfdbfe;
-}
-
-.plan-title {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-.plan-text {
-  color: var(--muted);
-  font-size: 0.8rem;
-  margin-bottom: 0.4rem;
-}
-
-.plan-note {
-  font-size: 0.76rem;
-  color: var(--muted);
-}
-
-@media (max-width: 860px) {
-  .plans {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-    .step-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      margin-bottom: 0.4rem;
-      background: rgba(37, 99, 235, 0.08);
-    }
-
-    .step-title {
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-    }
-
-    .step-text {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* FORM */
-    .form-card {
-      margin-top: 1.75rem;
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: 26px;
-      padding: 1.5rem 1.35rem 1.6rem;
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      box-shadow: var(--shadow);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem 1.25rem;
-      margin-top: 1rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      font-size: 0.85rem;
-    }
-
-    .form-group-full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-weight: 500;
-    }
-
-    label span {
-      color: #ef4444;
-      margin-left: 0.15rem;
-    }
-
-    input,
-    select,
-    textarea {
-      border-radius: 999px;
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      padding: 0.6rem 0.8rem;
-      font: inherit;
-      background: #f9fafb;
-      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
-    }
-
-    textarea {
-      border-radius: 18px;
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.3);
-      background: #ffffff;
-    }
-
-    .help {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .form-footer {
-      margin-top: 1.4rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .security {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .security-icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-    }
-
-    .confirmation {
-      margin-top: 0.9rem;
-      padding: 0.75rem 0.85rem;
-      border-radius: 14px;
-      background: #ecfdf5;
-      border: 1px solid #bbf7d0;
-      font-size: 0.78rem;
-      color: #166534;
+    .hidden {
       display: none;
     }
 
-    .confirmation.show {
-      display: block;
+    /* PLAN GRATUITO */
+
+    .ccaa-section {
+      text-align: left;
+      background: var(--card);
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
     }
 
-    .confirmation strong {
-      font-weight: 600;
-    }
-
-    .email-highlight {
-      font-weight: 600;
-      color: #0f172a;
-    }
-
-    /* MAP */
-    .map-card {
-      margin-top: 2.2rem;
-      background: rgba(255, 255, 255, 0.97);
-      border-radius: 24px;
-      padding: 1.25rem 1.35rem 1.3rem;
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      box-shadow: 0 20px 40px rgba(148, 163, 184, 0.25);
-    }
-
-    .map-header {
+    .ccaa-title {
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 0.9rem;
+      align-items: center;
     }
 
-    .map-header p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: var(--muted);
+    .ccaa-title span {
+      font-size: 18px;
     }
 
-    .map-wrapper {
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      background: #e5e7eb;
+    .city-list {
+      display: none;
+      margin-left: 8px;
+      margin-top: 8px;
     }
 
-    .map-wrapper iframe {
+    .city {
+      cursor: pointer;
+      margin: 4px 0;
+      color: var(--accent-dark);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      font-size: 14px;
+    }
+
+    .info-box {
+      margin-top: 10px;
+      padding: 10px;
+      background: #E5F7FA;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    /* PLAN PERSONALIZADO */
+
+    .question-box {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      text-align: left;
+      box-shadow: var(--shadow);
+    }
+
+    .question-box h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .question-box label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select {
       width: 100%;
-      height: 320px;
-      border: 0;
-      display: block;
+      padding: 10px;
+      margin-top: 4px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      font-size: 14px;
     }
 
-    /* FOOTER */
-    footer {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 0 1.25rem 2rem;
-      font-size: 0.75rem;
-      color: var(--muted);
+    .daterange {
       display: flex;
-      justify-content: space-between;
-      gap: 0.75rem;
+      gap: 10px;
+    }
+
+    .daterange div {
+      flex: 1;
+    }
+
+    .back-btn {
+      background: var(--text);
+      color: white;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    .next-btn {
+      background: var(--accent);
+      color: white;
+      font-size: 16px;
+    }
+
+    .conditions-box {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      text-align: left;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+    }
+
+    .conditions-box ul {
+      padding-left: 20px;
+    }
+
+    .conditions-box li {
+      margin-bottom: 6px;
+    }
+
+    .conditions-actions {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    footer a {
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 2px;
+    .conditions-actions input[type="checkbox"] {
+      width: auto;
+      margin: 0;
     }
 
-    @media (max-width: 860px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-card {
-        order: -1;
-      }
-
-      .steps {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .form-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      header {
-        border-bottom-width: 0;
-      }
-
-      main {
-        padding-top: 1.1rem;
-      }
+    .conditions-actions label {
+      margin: 0;
     }
 
-    @media (max-width: 480px) {
-      .hero-card {
-        padding: 1.1rem 1rem;
+    #confirmationMessage {
+      margin-top: 20px;
+      background: var(--success);
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    #confirmationMessage strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: 0;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
       }
-      .map-wrapper iframe {
-        height: 260px;
+
+      button {
+        width: 90%;
+        max-width: 320px;
+      }
+
+      .daterange {
+        flex-direction: column;
       }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <nav class="nav">
-      <div class="logo">
-        <div class="logo-icon">ES</div>
-        <div>
-          <div>Explorando España</div>
-          <small style="font-size:0.7rem; color:var(--muted);">Viajes personalizados en 24h</small>
-        </div>
-      </div>
-      <div class="nav-links">
-        <a href="#como-funciona">Cómo funciona</a>
-        <a href="#mapa">Mapa</a>
-        <a href="#cuestionario" class="nav-cta">
-          Empieza ahora <span>➜</span>
-        </a>
-      </div>
-    </nav>
-  </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" aria-label="Presentación">
-      <div>
-        <div class="hero-badge">
-          <span>✨</span> Planes creados uno a uno por una persona, con ayuda de IA
-        </div>
-        <h1 class="hero-title">
-          Tu viaje perfecto por España,
-          <span>diseñado para ti</span>.
-        </h1>
-        <p class="hero-text">
-          Rellena un cuestionario rápido y en menos de 24 horas recibirás en tu correo
-          un itinerario bonito y claro para tus días de viaje por España.
-        </p>
-        <div class="hero-actions">
-          <a href="#cuestionario" class="btn-primary">
-            Empezar cuestionario <span>✈️</span>
-          </a>
-          <a href="#mapa" class="btn-secondary">
-            Ver zonas y mapa <span>🗺️</span>
-          </a>
-        </div>
-      </div>
+  <h1>Explorando España</h1>
+  <p class="subtitle">Elige un plan para inspirarte o para crear tu viaje perfecto en menos de 24 horas.</p>
 
-      <aside class="hero-card" aria-hidden="true">
-        <div class="hero-card-inner">
-          <div class="hero-card-header">
-            <div>
-              <div style="font-size:0.8rem; color:#9ca3af;">Ejemplo de viaje generado</div>
-              <div class="hero-destination">5 días por la Costa Brava</div>
-            </div>
-            <div class="hero-chip">
-              <span class="hero-chip-dot"></span> IA + toque humano
-            </div>
-          </div>
-          <div class="hero-bubble">
-            <span>🤖</span>
-            <div>
-              «Salida desde Barcelona, pueblos con encanto, calas tranquilas y
-              restaurantes con vistas. Sin coche el día 3 para descansar en la playa.»
-            </div>
-          </div>
-          <div class="hero-tags">
-            <div class="hero-tag">Pareja</div>
-            <div class="hero-tag">Presupuesto medio</div>
-            <div class="hero-tag">Alojamiento boutique</div>
-            <div class="hero-tag">Ritmo relajado</div>
-          </div>
-          <div class="hero-footer">
-            <div>
-              Plan listo en <strong>&lt; 24h</strong>
-            </div>
-            <div>
-              Entrega en PDF listo para enviar 💌
-            </div>
-          </div>
-        </div>
-      </aside>
-    </section>
+  <!-- BOTONES PRINCIPALES -->
+  <button id="freePlanBtn">PLAN GRATUITO</button>
+  <button id="personalPlanBtn">PLAN PERSONALIZADO</button>
 
-    <!-- CÓMO FUNCIONA -->
-     <section class="section" aria-label="Tipos de plan">
-  <h2 class="section-title">Planes gratis y personalizados</h2>
-  <p class="section-subtitle">
-    El cuestionario es siempre gratuito. Después tú decides si te vale con la versión básica o quieres algo más trabajado.
-  </p>
+  <!-- CONTENEDORES DE CADA PLAN -->
+  <div id="freePlan" class="container hidden"></div>
+  <div id="personalPlan" class="container hidden"></div>
 
-  <div class="plans">
-    <article class="plan-card">
-      <div class="plan-tag free">
-        🌱 Plan gratis
-      </div>
-      <div class="plan-title">Idea de itinerario básica</div>
-      <p class="plan-text">
-        Te propongo una ruta general con zonas recomendadas, duración orientativa de cada parada
-        y una estructura de días para que tengas por dónde empezar.
-      </p>
-      <p class="plan-note">
-        Ideal si quieres inspiración rápida y tú mismo te encargas de buscar alojamientos, restaurantes y detalles.
-      </p>
-    </article>
-
-    <article class="plan-card">
-      <div class="plan-tag paid">
-        ✨ Plan personalizado
-      </div>
-      <div class="plan-title">Itinerario detallado y cuidado</div>
-      <p class="plan-text">
-        Recibes un PDF bonito y claro, con días organizados, recomendaciones concretas, notas prácticas y un hilo lógico
-        de viaje adaptado a tu ritmo, presupuesto y gustos.
-      </p>
-      <p class="plan-note">
-        Perfecto si quieres algo listo para enviar a tu cliente, pareja o amigos sin tener que montar tú todo el plan.
-      </p>
-    </article>
-  </div>
-</section>
-
-    <section id="como-funciona" class="section">
-      <h2 class="section-title">Cómo funciona</h2>
-      <p class="section-subtitle">
-        Menos texto, más claridad: solo tres pasos.
-      </p>
-
-      <div class="steps">
-        <article class="step-card">
-          <div class="step-icon">1</div>
-          <div class="step-title">Cuestionario rápido</div>
-          <div class="step-text">
-            Cuéntame desde dónde sales, presupuesto, días y estilo de viaje.
-          </div>
-        </article>
-
-        <article class="step-card">
-          <div class="step-icon">2</div>
-          <div class="step-title">Creo tu plan</div>
-          <div class="step-text">
-            Uso IA y mi experiencia viajando por España para montar un itinerario
-            coherente, realista y bonito.
-          </div>
-        </article>
-
-        <article class="step-card">
-          <div class="step-icon">3</div>
-          <div class="step-title">Te lo envío en 24h</div>
-          <div class="step-text">
-            Recibes un PDF elegante con el plan completo listo para reenviar a tu cliente o acompañante.
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- FORMULARIO -->
-    <section id="cuestionario" class="section">
-      <div class="form-card">
-        <h2 class="section-title">Cuestionario de viaje</h2>
-        <p class="section-subtitle">
-          Tardarás unos 3 minutos. Cuanto más claro seas, mejor podré ajustar tu plan.
-        </p>
-
-        <form id="viaje-form">
-          <div class="form-grid">
-            <div class="form-group">
-  <label for="zona">¿A qué zona / ciudad de España quieres viajar?<span>*</span></label>
-  <select id="zona" name="Zona o ciudad de destino" required>
-    <option value="">Elige una opción</option>
-
-    <optgroup label="Andalucía">
-      <option value="Sevilla">Sevilla</option>
-      <option value="Málaga">Málaga</option>
-      <option value="Cádiz">Cádiz</option>
-      <option value="Granada">Granada</option>
-      <option value="Córdoba">Córdoba</option>
-      <option value="Almería">Almería</option>
-      <option value="Huelva">Huelva</option>
-      <option value="Jaén">Jaén</option>
-    </optgroup>
-
-    <optgroup label="Aragón">
-      <option value="Zaragoza">Zaragoza</option>
-      <option value="Huesca">Huesca</option>
-      <option value="Teruel">Teruel</option>
-    </optgroup>
-
-    <optgroup label="Asturias">
-      <option value="Oviedo">Oviedo</option>
-      <option value="Gijón">Gijón</option>
-      <option value="Avilés">Avilés</option>
-    </optgroup>
-
-    <optgroup label="Islas Baleares">
-      <option value="Mallorca">Mallorca</option>
-      <option value="Ibiza">Ibiza</option>
-      <option value="Menorca">Menorca</option>
-      <option value="Formentera">Formentera</option>
-    </optgroup>
-
-    <optgroup label="Canarias">
-      <option value="Tenerife">Tenerife</option>
-      <option value="Gran Canaria">Gran Canaria</option>
-      <option value="Lanzarote">Lanzarote</option>
-      <option value="Fuerteventura">Fuerteventura</option>
-      <option value="La Palma">La Palma</option>
-      <option value="La Gomera">La Gomera</option>
-      <option value="El Hierro">El Hierro</option>
-    </optgroup>
-
-    <optgroup label="Cantabria">
-      <option value="Santander">Santander</option>
-    </optgroup>
-
-    <optgroup label="Castilla y León">
-      <option value="Valladolid">Valladolid</option>
-      <option value="Salamanca">Salamanca</option>
-      <option value="León">León</option>
-      <option value="Burgos">Burgos</option>
-      <option value="Segovia">Segovia</option>
-      <option value="Ávila">Ávila</option>
-      <option value="Soria">Soria</option>
-      <option value="Zamora">Zamora</option>
-      <option value="Palencia">Palencia</option>
-    </optgroup>
-
-    <optgroup label="Castilla-La Mancha">
-      <option value="Toledo">Toledo</option>
-      <option value="Albacete">Albacete</option>
-      <option value="Ciudad Real">Ciudad Real</option>
-      <option value="Cuenca">Cuenca</option>
-      <option value="Guadalajara">Guadalajara</option>
-    </optgroup>
-
-    <optgroup label="Cataluña">
-      <option value="Barcelona">Barcelona</option>
-      <option value="Girona">Girona</option>
-      <option value="Tarragona">Tarragona</option>
-      <option value="Lleida">Lleida</option>
-      <option value="Costa Brava">Costa Brava</option>
-      <option value="Costa Dorada">Costa Dorada</option>
-    </optgroup>
-
-    <optgroup label="Comunidad de Madrid">
-      <option value="Madrid">Madrid</option>
-      <option value="Sierra de Guadarrama">Sierra de Guadarrama</option>
-    </optgroup>
-
-    <optgroup label="Comunidad Valenciana">
-      <option value="Valencia">Valencia</option>
-      <option value="Alicante">Alicante</option>
-      <option value="Castellón">Castellón</option>
-      <option value="Costa Blanca">Costa Blanca</option>
-      <option value="Dénia">Dénia</option>
-    </optgroup>
-
-    <optgroup label="Extremadura">
-      <option value="Cáceres">Cáceres</option>
-      <option value="Badajoz">Badajoz</option>
-      <option value="Mérida">Mérida</option>
-    </optgroup>
-
-    <optgroup label="Galicia">
-      <option value="A Coruña">A Coruña</option>
-      <option value="Santiago de Compostela">Santiago de Compostela</option>
-      <option value="Vigo">Vigo</option>
-      <option value="Lugo">Lugo</option>
-      <option value="Ourense">Ourense</option>
-      <option value="Rías Baixas">Rías Baixas</option>
-    </optgroup>
-
-    <optgroup label="La Rioja">
-      <option value="Logroño">Logroño</option>
-      <option value="Ruta del vino en La Rioja">Ruta del vino</option>
-    </optgroup>
-
-    <optgroup label="Murcia">
-      <option value="Murcia">Murcia</option>
-      <option value="Cartagena">Cartagena</option>
-      <option value="La Manga">La Manga</option>
-    </optgroup>
-
-    <optgroup label="Navarra">
-      <option value="Pamplona">Pamplona</option>
-      <option value="Pirineo navarro">Pirineo navarro</option>
-    </optgroup>
-
-    <optgroup label="País Vasco">
-      <option value="Bilbao">Bilbao</option>
-      <option value="San Sebastián">San Sebastián</option>
-      <option value="Vitoria-Gasteiz">Vitoria-Gasteiz</option>
-      <option value="Costa vasca">Costa vasca</option>
-    </optgroup>
-
-    <optgroup label="Ceuta y Melilla">
-      <option value="Ceuta">Ceuta</option>
-      <option value="Melilla">Melilla</option>
-    </optgroup>
-  </select>
-  <p class="help">
-    Si tu destino es muy concreto o un pueblo pequeño, cuéntamelo al final en “Detalles adicionales”.
-  </p>
-</div>
-
-
-          <div class="form-footer">
-            <button type="submit" class="btn-primary">
-              Enviar cuestionario y crear plan <span>🚀</span>
-            </button>
-            <div class="security">
-              <div class="security-icon">🔒</div>
-              <div>
-                Tus datos se usan solo para crear tu itinerario. En máximo 24h tendrás noticias.
-              </div>
-            </div>
-          </div>
-
-          <div id="confirmation" class="confirmation">
-            <strong>¡Cuestionario enviado!</strong><br />
-            En un máximo de 24 horas recibirás tu propuesta de viaje personalizada en el correo que has indicado.
-            <br /><br />
-            Si no te llega nada, puedes escribirme a
-<span class="email-highlight">contacto.adriangilj@gmail.com</span>
-indicando tu nombre y la fecha en la que rellenaste el formulario.
-
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- MAPA -->
-    <section id="mapa" class="section">
-      <div class="map-card">
-        <div class="map-header">
-          <div>
-            <h2 class="section-title">Mapa de inspiración</h2>
-            <p>
-              Una vista general de España para que sitúes tus próximos viajes.
-              El plan final se adaptará a tu origen, días y presupuesto.
-            </p>
-          </div>
-        </div>
-
-        <div class="map-wrapper">
-          <iframe
-           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3131347.2728260276!2d-4.988733138181672!3d39.964729261987124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc42e3783261bc8b%3A0xa6ec2c940768a3ec!2zRXNwYcOxYQ!5e0!3m2!1ses!2ses!4v1764702748650!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-           </iframe>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div>© <span id="year"></span> Explorando España · Todos los derechos reservados.</div>
-    <div>
-      Contacto: <a href="mailto:contacto.adriangilj@gmail.com">contacto.adriangilj@gmail.com</a>
-
-    </div>
-  </footer>
+  <!-- MAPA DE ESPAÑA, SIEMPRE ABAJO -->
+  <iframe
+    loading="lazy"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4889502.373868815!2d-9.556876061667067!3d40.20847784486433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6b61b4f20bb6c3%3A0x10340f3c9caa480!2sEspaña!5e0!3m2!1ses!2ses!4v1700000000000">
+  </iframe>
 
   <script>
-    // Cambia este correo por el tuyo
-    const FORM_EMAIL = "contacto.adriangilj@gmail.com";
+    const DESTINO_EMAIL = "contacto.adriangilj@gmail.com";
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const freePlanBtn = document.getElementById("freePlanBtn");
+    const personalPlanBtn = document.getElementById("personalPlanBtn");
+    const freePlanContainer = document.getElementById("freePlan");
+    const personalPlanContainer = document.getElementById("personalPlan");
 
-    const form = document.getElementById("viaje-form");
-    const confirmation = document.getElementById("confirmation");
+    // ============================================================
+    //   PLAN GRATUITO: CCAA + CIUDADES + INFO
+    // ============================================================
 
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
+    const ccaaData = {
+      "Andalucía": [
+        "Sevilla",
+        "Málaga",
+        "Cádiz",
+        "Granada",
+        "Córdoba",
+        "Almería",
+        "Huelva",
+        "Jaén"
+      ],
+      "Cataluña": [
+        "Barcelona",
+        "Girona (Costa Brava)",
+        "Tarragona (Costa Dorada)",
+        "Lleida (Pirineo)"
+      ],
+      "Comunidad de Madrid": [
+        "Madrid",
+        "Sierra de Guadarrama"
+      ],
+      "Comunidad Valenciana": [
+        "Valencia",
+        "Alicante (Costa Blanca)",
+        "Castellón",
+        "Dénia"
+      ],
+      "País Vasco": [
+        "Bilbao",
+        "San Sebastián",
+        "Vitoria-Gasteiz",
+        "Costa vasca"
+      ],
+      "Galicia": [
+        "Santiago de Compostela",
+        "A Coruña",
+        "Vigo (Rías Baixas)",
+        "Lugo",
+        "Ourense"
+      ],
+      "Islas Baleares": [
+        "Mallorca",
+        "Ibiza",
+        "Menorca",
+        "Formentera"
+      ],
+      "Islas Canarias": [
+        "Tenerife",
+        "Gran Canaria",
+        "Lanzarote",
+        "Fuerteventura",
+        "La Palma"
+      ],
+      "Murcia": [
+        "Murcia",
+        "Cartagena",
+        "La Manga"
+      ],
+      "Navarra": [
+        "Pamplona",
+        "Pirineo navarro"
+      ],
+      "Aragón": [
+        "Zaragoza",
+        "Huesca (Pirineo)",
+        "Teruel"
+      ],
+      "Castilla y León": [
+        "Salamanca",
+        "Segovia",
+        "Ávila",
+        "León",
+        "Burgos",
+        "Valladolid"
+      ],
+      "Castilla-La Mancha": [
+        "Toledo",
+        "Cuenca",
+        "Albacete",
+        "Ciudad Real",
+        "Guadalajara"
+      ],
+      "Asturias": [
+        "Oviedo",
+        "Gijón",
+        "Cudillero",
+        "Ribadesella"
+      ],
+      "Cantabria": [
+        "Santander",
+        "Picos de Europa (zona cántabra)"
+      ],
+      "La Rioja": [
+        "Logroño",
+        "Ruta del vino en La Rioja"
+      ],
+      "Extremadura": [
+        "Cáceres",
+        "Mérida",
+        "Badajoz"
+      ],
+      "Ceuta y Melilla": [
+        "Ceuta",
+        "Melilla"
+      ]
+    };
 
-      const data = new FormData(form);
-      let body = "Nuevo cuestionario de viaje desde la web:\n\n";
+    const cityInfo = {
+      "Sevilla": `
+        <strong>Actividades:</strong> Catedral y Giralda, Real Alcázar, Barrio de Santa Cruz, Plaza de España.<br>
+        <strong>Hoteles:</strong> Casco histórico y zona centro con hoteles boutique y 3-4*.<br>
+        <strong>Transporte:</strong> Todo a pie en el centro, tranvía y buses, AVE con Madrid.<br>
+        <strong>Fiesta:</strong> Triana, Alameda, terrazas en el centro y tablaos de flamenco.
+      `,
+      "Málaga": `
+        <strong>Actividades:</strong> Alcazaba, Castillo de Gibralfaro, Muelle Uno, museos y playas urbanas.<br>
+        <strong>Hoteles:</strong> Hoteles de ciudad en el centro y resorts de playa en la costa.<br>
+        <strong>Transporte:</strong> Aeropuerto internacional, tren de cercanías, autobuses frecuentes.<br>
+        <strong>Fiesta:</strong> Centro histórico, Soho y chiringuitos con música.
+      `,
+      "Granada": `
+        <strong>Actividades:</strong> Alhambra, Albaicín, miradores y rutas de tapas.<br>
+        <strong>Hoteles:</strong> Zona centro y entorno de la Alhambra, gran variedad de precios.<br>
+        <strong>Transporte:</strong> Ciudades cercanas y Sierra Nevada accesibles en bus o coche.<br>
+        <strong>Fiesta:</strong> Bares de tapas y pubs en el centro.
+      `,
+      "Barcelona": `
+        <strong>Actividades:</strong> Sagrada Familia, Park Güell, Casa Batlló, paseo marítimo y playas.<br>
+        <strong>Hoteles:</strong> Eixample para moverse bien, zona playa para vacaciones de sol.<br>
+        <strong>Transporte:</strong> Metro, buses y bici, ciudad muy bien conectada.<br>
+        <strong>Fiesta:</strong> Bares y clubs en zonas como Eixample, Born y Barceloneta.
+      `,
+      "Madrid": `
+        <strong>Actividades:</strong> Museo del Prado, Parque del Retiro, Palacio Real, barrios de Malasaña y La Latina.<br>
+        <strong>Hoteles:</strong> Centro (Sol, Gran Vía) y barrios con encanto (Chamberí, Huertas).<br>
+        <strong>Transporte:</strong> Metro y cercanías, no hace falta coche.<br>
+        <strong>Fiesta:</strong> Azoteas, bares de copas y discotecas para todos los gustos.
+      `,
+      "Valencia": `
+        <strong>Actividades:</strong> Ciudad de las Artes y las Ciencias, casco antiguo, playas de la Malvarrosa y Patacona.<br>
+        <strong>Hoteles:</strong> Centro para combinar cultura y ocio, zona playa para vacaciones de mar.<br>
+        <strong>Transporte:</strong> Metro, tranvía y carriles bici.<br>
+        <strong>Fiesta:</strong> Ruzafa, Cánovas y locales frente al mar.
+      `,
+      "Alicante (Costa Blanca)": `
+        <strong>Actividades:</strong> Castillo de Santa Bárbara, paseo marítimo, excursiones a la Costa Blanca.<br>
+        <strong>Hoteles:</strong> Hoteles y apartamentos frente al mar, resorts en pueblos cercanos.<br>
+        <strong>Transporte:</strong> Aeropuerto cercano, tranvía TRAM por la costa.<br>
+        <strong>Fiesta:</strong> Zona de la Explanada y bares junto a la playa.
+      `,
+      "Dénia": `
+        <strong>Actividades:</strong> Playas, puerto, rutas al Montgó, paseos en barco a Ibiza y Formentera.<br>
+        <strong>Hoteles:</strong> Apartamentos y hoteles frente al mar, casas rurales en el interior.<br>
+        <strong>Transporte:</strong> Coche muy recomendable, ferris a Baleares.<br>
+        <strong>Fiesta:</strong> Terrazas junto al puerto y chiringuitos.
+      `,
+      "Ibiza": `
+        <strong>Actividades:</strong> Calas y playas, atardeceres en San Antonio, Dalt Vila, rutas en barco.<br>
+        <strong>Hoteles:</strong> Hoteles de playa, agroturismos en interior, villas privadas.<br>
+        <strong>Transporte:</strong> Coche o moto para explorar bien la isla.<br>
+        <strong>Fiesta:</strong> Clubs mundialmente conocidos y beach clubs, pero también zonas tranquilas.
+      `,
+      "Mallorca": `
+        <strong>Actividades:</strong> Serra de Tramuntana, calas, Palma histórica, rutas en bici.<br>
+        <strong>Hoteles:</strong> Resorts de playa, fincas rurales, hoteles boutique en el centro histórico.<br>
+        <strong>Transporte:</strong> Coche muy recomendable para ver la isla.<br>
+        <strong>Fiesta:</strong> Zonas animadas en Palma y calas con ambiente.
+      `
+      // El resto de ciudades usan un texto genérico:
+    };
 
-      for (const [key, value] of data.entries()) {
-        body += `${key}: ${value}\n`;
+    function getGenericCityInfo(city) {
+      return `
+        <strong>Actividades:</strong> Paseo por el centro, visitas culturales y naturaleza de los alrededores.<br>
+        <strong>Hoteles:</strong> Alojamiento en zona céntrica o en áreas tranquilas según el estilo de viaje.<br>
+        <strong>Transporte:</strong> Recomendable combinar transporte público y coche de alquiler si quieres moverte por la región.<br>
+        <strong>Ambiente:</strong> Bares y restaurantes locales para probar la gastronomía típica.
+      `;
+    }
+
+    freePlanBtn.addEventListener("click", () => {
+      freePlanContainer.innerHTML = "";
+      freePlanContainer.classList.remove("hidden");
+      personalPlanContainer.classList.add("hidden");
+
+      for (let ccaa in ccaaData) {
+        const section = document.createElement("div");
+        section.className = "ccaa-section";
+
+        const title = document.createElement("div");
+        title.className = "ccaa-title";
+        title.innerHTML = `<span>${ccaa}</span><span>+</span>`;
+
+        const list = document.createElement("div");
+        list.className = "city-list";
+
+        ccaaData[ccaa].forEach(city => {
+          const c = document.createElement("div");
+          c.className = "city";
+          c.textContent = city;
+
+          c.addEventListener("click", () => {
+            const info = document.createElement("div");
+            info.className = "info-box";
+            info.innerHTML = cityInfo[city] || getGenericCityInfo(city);
+            list.appendChild(info);
+          });
+
+          list.appendChild(c);
+        });
+
+        title.addEventListener("click", () => {
+          const isVisible = list.style.display === "block";
+          list.style.display = isVisible ? "none" : "block";
+          title.querySelectorAll("span")[1].textContent = isVisible ? "+" : "−";
+        });
+
+        section.appendChild(title);
+        section.appendChild(list);
+        freePlanContainer.appendChild(section);
+      }
+    });
+
+    // ============================================================
+    //   PLAN PERSONALIZADO: CUESTIONARIO PASO A PASO
+    // ============================================================
+
+    let step = 0;
+    const answers = {
+      nombre: "",
+      email: "",
+      edad: "",
+      destino: "",
+      personas: "",
+      fechaIda: "",
+      fechaVuelta: "",
+      ritmo: "",
+      alojamiento: ""
+    };
+
+    const destinosSelectOptions = (() => {
+      const groups = [];
+      groups.push({
+        label: "Opción automática",
+        options: ["Sitio aleatorio con propuestas según tu perfil"]
+      });
+      for (let ccaa in ccaaData) {
+        groups.push({
+          label: ccaa,
+          options: ccaaData[ccaa]
+        });
+      }
+      return groups;
+    })();
+
+    function renderQuestion() {
+      personalPlanContainer.innerHTML = "";
+      personalPlanContainer.classList.remove("hidden");
+      freePlanContainer.classList.add("hidden");
+
+      const box = document.createElement("div");
+      box.className = "question-box";
+
+      if (step === 0) {
+        box.innerHTML = `
+          <h3>1. Nombre completo</h3>
+          <label>Escribe tu nombre completo para saber cómo dirigirnos a ti.</label>
+          <input type="text" id="nombreInput" placeholder="Nombre y apellidos" value="${answers.nombre || ""}">
+        `;
       }
 
-      // Enviará los datos abriendo el cliente de correo hacia tu email
-      const mailtoLink = `mailto:${FORM_EMAIL}?subject=${encodeURIComponent(
-        "Nuevo cuestionario de viaje desde la web"
-      )}&body=${encodeURIComponent(body)}`;
+      if (step === 1) {
+        box.innerHTML = `
+          <h3>2. Correo de contacto</h3>
+          <label>Escribe tu correo. Ahí recibirás tu propuesta de viaje en PDF.</label>
+          <input type="email" id="emailInput" placeholder="tucorreo@ejemplo.com" value="${answers.email || ""}">
+        `;
+      }
 
+      if (step === 2) {
+        box.innerHTML = `
+          <h3>3. ¿Edad?</h3>
+          <label>Elige tu rango de edad.</label>
+          <select id="edadSelect">
+            <option value="">Selecciona una opción</option>
+            <option value="18-26">18-26</option>
+            <option value="26-34">26-34</option>
+            <option value="34-42">34-42</option>
+            <option value="42-50">42-50</option>
+            <option value="+50">+50</option>
+          </select>
+        `;
+        if (answers.edad) {
+          setTimeout(() => {
+            document.getElementById("edadSelect").value = answers.edad;
+          }, 0);
+        }
+      }
+
+      if (step === 3) {
+        const destWrapper = document.createElement("div");
+        destWrapper.innerHTML = `
+          <h3>4. ¿Qué deseas visitar?</h3>
+          <label>Elige ciudad o zona. También puedes seleccionar un sitio aleatorio.</label>
+        `;
+        const select = document.createElement("select");
+        select.id = "destinoSelect";
+        const defaultOpt = document.createElement("option");
+        defaultOpt.value = "";
+        defaultOpt.textContent = "Selecciona un destino";
+        select.appendChild(defaultOpt);
+
+        destinosSelectOptions.forEach(group => {
+          const optgroup = document.createElement("optgroup");
+          optgroup.label = group.label;
+          group.options.forEach(optText => {
+            const opt = document.createElement("option");
+            opt.value = optText;
+            opt.textContent = optText;
+            optgroup.appendChild(opt);
+          });
+          select.appendChild(optgroup);
+        });
+
+        destWrapper.appendChild(select);
+        box.appendChild(destWrapper);
+
+        if (answers.destino) {
+          setTimeout(() => {
+            document.getElementById("destinoSelect").value = answers.destino;
+          }, 0);
+        }
+      }
+
+      if (step === 4) {
+        box.innerHTML = `
+          <h3>5. ¿Cuántos viajan?</h3>
+          <label>Elige el número total de personas.</label>
+          <select id="personasSelect">
+            <option value="">Selecciona</option>
+            ${Array.from({length: 20}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join("")}
+          </select>
+        `;
+        if (answers.personas) {
+          setTimeout(() => {
+            document.getElementById("personasSelect").value = answers.personas;
+          }, 0);
+        }
+      }
+
+      if (step === 5) {
+        box.innerHTML = `
+          <h3>6. ¿Cuánto tiempo?</h3>
+          <label>Selecciona fechas de ida y vuelta.</label>
+          <div class="daterange">
+            <div>
+              <small>Fecha de ida</small>
+              <input type="date" id="fechaIdaInput" value="${answers.fechaIda || ""}">
+            </div>
+            <div>
+              <small>Fecha de vuelta</small>
+              <input type="date" id="fechaVueltaInput" value="${answers.fechaVuelta || ""}">
+            </div>
+          </div>
+        `;
+      }
+
+      if (step === 6) {
+        box.innerHTML = `
+          <h3>7. ¿Cómo quieres el viaje?</h3>
+          <label>Elige el ritmo del viaje.</label>
+          <select id="ritmoSelect">
+            <option value="">Selecciona</option>
+            <option value="Tranquilo">Tranquilo</option>
+            <option value="Intenso">Intenso</option>
+            <option value="Equilibrado">Equilibrado</option>
+            <option value="No me importa">No me importa</option>
+          </select>
+        `;
+        if (answers.ritmo) {
+          setTimeout(() => {
+            document.getElementById("ritmoSelect").value = answers.ritmo;
+          }, 0);
+        }
+      }
+
+      if (step === 7) {
+        box.innerHTML = `
+          <h3>8. ¿Dónde quieres pasar tu estancia?</h3>
+          <label>Tipo de alojamiento preferido.</label>
+          <select id="alojamientoSelect">
+            <option value="">Selecciona</option>
+            <option value="Hotel">Hotel</option>
+            <option value="Airbnb">Airbnb</option>
+            <option value="Villa">Villa</option>
+          </select>
+        `;
+        if (answers.alojamiento) {
+          setTimeout(() => {
+            document.getElementById("alojamientoSelect").value = answers.alojamiento;
+          }, 0);
+        }
+      }
+
+      // Botones de navegación
+      const buttonsDiv = document.createElement("div");
+
+      if (step > 0) {
+        const backBtn = document.createElement("button");
+        backBtn.textContent = "Volver";
+        backBtn.className = "back-btn";
+        backBtn.onclick = () => {
+          saveCurrentStep();
+          step--;
+          renderQuestion();
+        };
+        buttonsDiv.appendChild(backBtn);
+      }
+
+      const nextBtn = document.createElement("button");
+      nextBtn.className = "next-btn";
+      nextBtn.textContent = step === 7 ? "Ir a confirmar" : "Siguiente";
+
+      nextBtn.onclick = () => {
+        if (!saveCurrentStep(true)) return;
+
+        if (step < 7) {
+          step++;
+          renderQuestion();
+        } else {
+          renderConditions();
+        }
+      };
+
+      buttonsDiv.appendChild(nextBtn);
+      box.appendChild(buttonsDiv);
+
+      personalPlanContainer.appendChild(box);
+    }
+
+    function saveCurrentStep(showAlerts) {
+      if (step === 0) {
+        const val = document.getElementById("nombreInput").value.trim();
+        if (!val && showAlerts) {
+          alert("Por favor, escribe tu nombre completo.");
+          return false;
+        }
+        answers.nombre = val;
+      }
+
+      if (step === 1) {
+        const val = document.getElementById("emailInput").value.trim();
+        if (!val && showAlerts) {
+          alert("Por favor, escribe tu correo de contacto.");
+          return false;
+        }
+        answers.email = val;
+      }
+
+      if (step === 2) {
+        const val = document.getElementById("edadSelect").value;
+        if (!val && showAlerts) {
+          alert("Por favor, elige un rango de edad.");
+          return false;
+        }
+        answers.edad = val;
+      }
+
+      if (step === 3) {
+        const val = document.getElementById("destinoSelect").value;
+        if (!val && showAlerts) {
+          alert("Por favor, elige un destino o la opción aleatoria.");
+          return false;
+        }
+        answers.destino = val;
+      }
+
+      if (step === 4) {
+        const val = document.getElementById("personasSelect").value;
+        if (!val && showAlerts) {
+          alert("Por favor, indica cuántos viajan.");
+          return false;
+        }
+        answers.personas = val;
+      }
+
+      if (step === 5) {
+        const ida = document.getElementById("fechaIdaInput").value;
+        const vuelta = document.getElementById("fechaVueltaInput").value;
+        if ((!ida || !vuelta) && showAlerts) {
+          alert("Por favor, selecciona fechas de ida y vuelta.");
+          return false;
+        }
+        answers.fechaIda = ida;
+        answers.fechaVuelta = vuelta;
+      }
+
+      if (step === 6) {
+        const val = document.getElementById("ritmoSelect").value;
+        if (!val && showAlerts) {
+          alert("Por favor, indica cómo quieres el viaje.");
+          return false;
+        }
+        answers.ritmo = val;
+      }
+
+      if (step === 7) {
+        const val = document.getElementById("alojamientoSelect").value;
+        if (!val && showAlerts) {
+          alert("Por favor, elige el tipo de alojamiento.");
+          return false;
+        }
+        answers.alojamiento = val;
+      }
+
+      return true;
+    }
+
+    function renderConditions() {
+      personalPlanContainer.innerHTML = "";
+      const box = document.createElement("div");
+      box.className = "conditions-box";
+
+      box.innerHTML = `
+        <h3>Condiciones y envío del plan</h3>
+        <p>Antes de finalizar, revisa estas condiciones:</p>
+        <ul>
+          <li>Tu viaje se generará de forma personalizada combinando IA y revisión humana.</li>
+          <li>Recibirás la propuesta en un máximo de <strong>24 horas</strong> al correo indicado.</li>
+          <li>Podrás responder a ese correo para solicitar ajustes o cambios.</li>
+        </ul>
+        <div class="conditions-actions">
+          <input type="checkbox" id="condicionesCheck">
+          <label for="condicionesCheck">Acepto estas condiciones y deseo recibir mi viaje en menos de 24h.</label>
+        </div>
+      `;
+
+      const buttonsDiv = document.createElement("div");
+      buttonsDiv.style.marginTop = "15px";
+
+      const backBtn = document.createElement("button");
+      backBtn.textContent = "Volver";
+      backBtn.className = "back-btn";
+      backBtn.onclick = () => {
+        step = 7;
+        renderQuestion();
+      };
+
+      const finishBtn = document.createElement("button");
+      finishBtn.textContent = "Finalizar y enviar";
+      finishBtn.className = "next-btn";
+      finishBtn.onclick = () => {
+        const check = document.getElementById("condicionesCheck").checked;
+        if (!check) {
+          alert("Debes aceptar las condiciones para continuar.");
+          return;
+        }
+        sendEmailAndPdf();
+      };
+
+      buttonsDiv.appendChild(backBtn);
+      buttonsDiv.appendChild(finishBtn);
+      box.appendChild(buttonsDiv);
+
+      personalPlanContainer.appendChild(box);
+    }
+
+    function buildBodyText() {
+      return [
+        "Nuevo cuestionario de viaje desde la web Explorando España:",
+        "",
+        `Nombre completo: ${answers.nombre}`,
+        `Correo de contacto: ${answers.email}`,
+        `Edad: ${answers.edad}`,
+        `Destino deseado: ${answers.destino}`,
+        `Número de viajeros: ${answers.personas}`,
+        `Fecha de ida: ${answers.fechaIda}`,
+        `Fecha de vuelta: ${answers.fechaVuelta}`,
+        `Ritmo de viaje: ${answers.ritmo}`,
+        `Tipo de alojamiento: ${answers.alojamiento}`,
+        "",
+        "Generar propuesta de viaje en menos de 24h."
+      ].join("\n");
+    }
+
+    function sendEmailAndPdf() {
+      const bodyText = buildBodyText();
+      const subject = "Nuevo cuestionario de viaje - Explorando España";
+
+      const mailtoLink =
+        "mailto:" + encodeURIComponent(DESTINO_EMAIL) +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(bodyText);
+
+      // Abrir cliente de correo del usuario
       window.location.href = mailtoLink;
 
-      form.reset();
-      confirmation.classList.add("show");
-      window.scrollTo({
-        top: form.offsetTop - 120,
-        behavior: "smooth",
-      });
+      // Generar PDF con jsPDF
+      if (window.jspdf) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        let y = 10;
+        const lines = bodyText.split("\n");
+        doc.setFontSize(12);
+        lines.forEach(line => {
+          doc.text(line, 10, y);
+          y += 7;
+          if (y > 280) {
+            doc.addPage();
+            y = 10;
+          }
+        });
+        doc.save("cuestionario-viaje.pdf");
+      }
+
+      // Mostrar mensaje de confirmación en la web
+      personalPlanContainer.innerHTML = `
+        <div id="confirmationMessage">
+          <strong>¡Cuestionario enviado!</strong>
+          <p>En menos de 24 horas recibirás tu propuesta de viaje personalizada en el correo <strong>${answers.email}</strong>.</p>
+          <p>Si no te llega nada, puedes escribir a <strong>${DESTINO_EMAIL}</strong> indicando tu nombre y la fecha en la que rellenaste el formulario.</p>
+        </div>
+      `;
+    }
+
+    personalPlanBtn.addEventListener("click", () => {
+      step = 0;
+      renderQuestion();
     });
   </script>
 </body>
