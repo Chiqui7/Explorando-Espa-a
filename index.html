@@ -33,7 +33,7 @@
 
     h1 {
       margin-top: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     p.subtitle {
@@ -50,6 +50,12 @@
       border-radius: 8px;
       border: none;
       cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     }
 
     #freePlanBtn {
@@ -103,12 +109,18 @@
     }
 
     .city {
+      display: inline-block;
       cursor: pointer;
-      margin: 4px 0;
+      margin: 3px 6px 3px 0;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #E5F7FA;
       color: var(--accent-dark);
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      font-size: 14px;
+      font-size: 13px;
+    }
+
+    .city:hover {
+      background: #dbeff4;
     }
 
     .info-box {
@@ -117,6 +129,11 @@
       background: #E5F7FA;
       border-radius: 6px;
       font-size: 13px;
+    }
+
+    .info-box strong {
+      display: inline-block;
+      margin-top: 3px;
     }
 
     /* PLAN PERSONALIZADO */
@@ -172,6 +189,30 @@
       background: var(--accent);
       color: white;
       font-size: 16px;
+    }
+
+    .progress-wrapper {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: #E9DAC4;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-bar-fill {
+      height: 6px;
+      width: 0;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.2s ease;
     }
 
     .conditions-box {
@@ -231,6 +272,13 @@
       border-radius: 10px;
     }
 
+    /* Pequeño texto legal bajo el cuestionario */
+    .privacy-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(0,0,0,0.6);
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 10px;
@@ -251,7 +299,9 @@
 <body>
 
   <h1>Explorando España</h1>
-  <p class="subtitle">Elige un plan para inspirarte o para crear tu viaje perfecto en menos de 24 horas.</p>
+  <p class="subtitle">
+    Planes por España creados con IA y revisión humana. Elige inspiración gratis o tu viaje perfecto en menos de 24h.
+  </p>
 
   <!-- BOTONES PRINCIPALES -->
   <button id="freePlanBtn">PLAN GRATUITO</button>
@@ -386,160 +436,158 @@
       ]
     };
 
-    // Información más detallada con sitios concretos
     const cityInfo = {
       "Sevilla": `
-        <strong>Actividades:</strong> Catedral y Giralda, Real Alcázar, Plaza de España, paseo por el Barrio de Santa Cruz y orillas del río Guadalquivir.<br>
-        <strong>Hoteles:</strong> Hoteles boutique cerca de la Catedral, alojamientos con terraza en Triana y zona centro.<br>
-        <strong>Transporte:</strong> AVE con Madrid y Barcelona, tranvía y buses; el casco histórico se recorre a pie.<br>
-        <strong>Fiesta:</strong> Triana (Betis y Pureza), Alameda de Hércules, terrazas de la zona de la Cartuja y tablaos flamencos.
+        <strong>Actividades:</strong> Catedral y Giralda, Real Alcázar, Plaza de España, paseo por el Barrio de Santa Cruz.<br>
+        <strong>Hoteles:</strong> Hoteles boutique cerca de la Catedral, alojamientos con terraza en Triana y centro.<br>
+        <strong>Transporte:</strong> AVE con Madrid y Barcelona, tranvía y buses; casco histórico a pie.<br>
+        <strong>Fiesta:</strong> Triana (Betis y Pureza), Alameda de Hércules, tablaos flamencos.
       `,
       "Málaga": `
-        <strong>Actividades:</strong> Alcazaba y castillo de Gibralfaro, Muelle Uno, Museo Picasso, Centre Pompidou, playas de la Malagueta y Pedregalejo.<br>
-        <strong>Hoteles:</strong> Hoteles de ciudad en el centro histórico, hoteles con rooftop en Soho y resorts de playa en la Costa del Sol.<br>
-        <strong>Transporte:</strong> Aeropuerto muy bien conectado, tren de cercanías a la costa, autobuses urbanos.<br>
-        <strong>Fiesta:</strong> Bares de Soho y centro, chiringuitos con música en la playa y zona de Teatinos para ambiente local.
+        <strong>Actividades:</strong> Alcazaba, Gibralfaro, Muelle Uno, Museo Picasso, playas de la Malagueta y Pedregalejo.<br>
+        <strong>Hoteles:</strong> Hoteles de ciudad en el centro, hoteles con rooftop en Soho y resorts de playa.<br>
+        <strong>Transporte:</strong> Aeropuerto bien conectado, cercanías a la costa, autobuses urbanos.<br>
+        <strong>Fiesta:</strong> Bares del centro, Soho y chiringuitos con música.
       `,
       "Cádiz": `
-        <strong>Actividades:</strong> Casco histórico, playa de La Caleta, castillo de San Sebastián, excursiones a Tarifa, Zahara de los Atunes o Conil.<br>
-        <strong>Hoteles:</strong> Hoteles pequeños en el casco antiguo, alojamientos frente al mar y resorts en la costa.<br>
-        <strong>Transporte:</strong> Tren desde Sevilla, coche ideal para recorrer la Costa de la Luz.<br>
-        <strong>Fiesta:</strong> Terrazas del casco antiguo y bares junto al paseo marítimo.
+        <strong>Actividades:</strong> Casco histórico, playa de La Caleta, castillos y excursiones a la Costa de la Luz.<br>
+        <strong>Hoteles:</strong> Hoteles pequeños en el casco antiguo y resorts en Zahara, Conil, Chiclana.<br>
+        <strong>Transporte:</strong> Tren desde Sevilla, coche ideal para hacer ruta de playas.<br>
+        <strong>Fiesta:</strong> Terrazas en el casco antiguo y bares frente al mar.
       `,
       "Granada": `
-        <strong>Actividades:</strong> Alhambra, Albaicín, Sacromonte, mirador de San Nicolás y ruta de tapas por el centro.<br>
+        <strong>Actividades:</strong> Alhambra, Albaicín, Sacromonte, mirador de San Nicolás y ruta de tapas.<br>
         <strong>Hoteles:</strong> Zona Catedral, Realejo y hoteles con vistas a la Alhambra.<br>
-        <strong>Transporte:</strong> Ciudad muy caminable; buses urbanos y acceso a Sierra Nevada en temporada.<br>
-        <strong>Fiesta:</strong> Bares de tapas en Calle Elvira y Navas, pubs en Pedro Antonio y ambiente universitario.
+        <strong>Transporte:</strong> Ciudad muy caminable; buses urbanos y acceso a Sierra Nevada.<br>
+        <strong>Fiesta:</strong> Bares de tapas en el centro y ambiente universitario.
       `,
       "Córdoba": `
         <strong>Actividades:</strong> Mezquita-Catedral, Judería, patios cordobeses, Medina Azahara.<br>
-        <strong>Hoteles:</strong> Alojamiento en la Judería, hoteles con patio interior y casas tradicionales.<br>
-        <strong>Transporte:</strong> AVE con Madrid y Sevilla, casi todo se puede hacer andando.<br>
-        <strong>Fiesta:</strong> Terrazas junto al río y zona centro con bares íntimos.
+        <strong>Hoteles:</strong> Alojamiento en la Judería y hoteles con patio andaluz.<br>
+        <strong>Transporte:</strong> AVE y ciudad pensada para recorrer a pie.<br>
+        <strong>Fiesta:</strong> Terrazas junto al río y bares en el centro.
       `,
       "Barcelona": `
-        <strong>Actividades:</strong> Sagrada Familia, Park Güell, Casa Batlló, paseo por el Born y el Gòtic, playas de la Barceloneta y Port Olímpic.<br>
-        <strong>Hoteles:</strong> Eixample para moverse bien, hoteles frente al mar en Barceloneta y Vila Olímpica.<br>
-        <strong>Transporte:</strong> Metro y buses muy completos, fácil moverse sin coche.<br>
-        <strong>Fiesta:</strong> Tapas y copas en El Born y Poble-sec, clubs y beach clubs en Port Olímpic y salas como Razzmatazz.
+        <strong>Actividades:</strong> Sagrada Familia, Park Güell, Casa Batlló, Born y Gòtic, playas de Barceloneta y Port Olímpic.<br>
+        <strong>Hoteles:</strong> Eixample para moverse bien, hoteles frente al mar en Barceloneta.<br>
+        <strong>Transporte:</strong> Metro y buses muy completos.<br>
+        <strong>Fiesta:</strong> Bares y clubs en Port Olímpic, El Born, Poble-sec y salas como Razzmatazz.
       `,
       "Girona (Costa Brava)": `
-        <strong>Actividades:</strong> Casco medieval de Girona, pueblos como Tossa de Mar, Calella de Palafrugell, Begur o Cadaqués, calas de agua turquesa.<br>
-        <strong>Hoteles:</strong> Hoteles en Girona ciudad, casas rurales en el interior y alojamientos junto al mar en la Costa Brava.<br>
-        <strong>Transporte:</strong> Tren a Girona; coche muy recomendable para moverse entre calas y pueblos.<br>
-        <strong>Fiesta:</strong> Chiringuitos y terrazas en la costa, bares tranquilos de pueblo.
+        <strong>Actividades:</strong> Casco medieval de Girona, pueblos como Tossa, Calella, Begur o Cadaqués y calas de agua turquesa.<br>
+        <strong>Hoteles:</strong> Hoteles en Girona ciudad, casas rurales y alojamientos costeros.<br>
+        <strong>Transporte:</strong> Tren a Girona; coche muy recomendable para moverse por la costa.<br>
+        <strong>Fiesta:</strong> Chiringuitos y bares frente al mar con ambiente relajado.
       `,
       "Madrid": `
-        <strong>Actividades:</strong> Museo del Prado, Reina Sofía y Thyssen, Parque del Retiro, Palacio Real, barrios como Malasaña, Chueca y La Latina.<br>
-        <strong>Hoteles:</strong> Zona Gran Vía, Sol y Huertas para estar en el corazón de la ciudad; Chamberí para algo más tranquilo.<br>
-        <strong>Transporte:</strong> Metro y cercanías cubren prácticamente todo, no necesitas coche.<br>
-        <strong>Fiesta:</strong> Malasaña y Chueca para ambiente alternativo y LGTBI, Huertas y La Latina para tapas y copas, azoteas en Gran Vía.
+        <strong>Actividades:</strong> Prado, Reina Sofía, Thyssen, Retiro, Palacio Real, barrios como Malasaña, Chueca y La Latina.<br>
+        <strong>Hoteles:</strong> Gran Vía, Sol y Huertas para estar en el centro, Chamberí para algo más tranquilo.<br>
+        <strong>Transporte:</strong> Metro y cercanías, no necesitas coche.<br>
+        <strong>Fiesta:</strong> Malasaña y Chueca, azoteas en Gran Vía y zona de Huertas/La Latina.
       `,
       "Valencia": `
-        <strong>Actividades:</strong> Ciudad de las Artes y las Ciencias, casco histórico, parque del Turia, playas de la Malvarrosa y Patacona, paella en la Albufera.<br>
-        <strong>Hoteles:</strong> Centro para combinar cultura y ocio, alojamientos frente al mar en la zona de playa.<br>
-        <strong>Transporte:</strong> Metro y tranvía, ciudad muy amigable para la bici.<br>
-        <strong>Fiesta:</strong> Bares y pubs en Ruzafa y Cánovas, locales junto al mar en Marina y paseo marítimo.
+        <strong>Actividades:</strong> Ciudad de las Artes y las Ciencias, casco antiguo, Turia, playas de Malvarrosa y Patacona, Albufera.<br>
+        <strong>Hoteles:</strong> Centro para combinar cultura y ocio, alojamientos frente al mar.<br>
+        <strong>Transporte:</strong> Metro, tranvía y bici.<br>
+        <strong>Fiesta:</strong> Ruzafa y Cánovas, locales en Marina y paseo marítimo.
       `,
       "Alicante (Costa Blanca)": `
-        <strong>Actividades:</strong> Castillo de Santa Bárbara, paseo por el casco antiguo y Explanada, excursiones a la Costa Blanca (Altea, Calpe, Benidorm).<br>
-        <strong>Hoteles:</strong> Hoteles y apartamentos frente al mar, alojamientos en el centro histórico y zona de puerto.<br>
-        <strong>Transporte:</strong> Aeropuerto cercano, tranvía TRAM por la costa y buen acceso en tren.<br>
-        <strong>Fiesta:</strong> Bares y discotecas junto al puerto y paseo marítimo, beach clubs en la Costa Blanca.
+        <strong>Actividades:</strong> Castillo de Santa Bárbara, casco antiguo, Explanada y excursiones por la Costa Blanca (Altea, Calpe, Benidorm).<br>
+        <strong>Hoteles:</strong> Hoteles y apartamentos frente al mar, alojamientos en el centro y puerto.<br>
+        <strong>Transporte:</strong> Aeropuerto cercano, tranvía TRAM por la costa.<br>
+        <strong>Fiesta:</strong> Bares y discotecas junto al puerto y playa.
       `,
       "Dénia": `
-        <strong>Actividades:</strong> Playas de Les Marines y Les Rotes, castillo de Dénia, rutas por el Montgó, paseos en barco hacia Ibiza y Formentera.<br>
-        <strong>Hoteles:</strong> Hoteles y apartamentos frente al mar, casas rurales en la zona interior.<br>
-        <strong>Transporte:</strong> Coche muy recomendable; ferris desde el puerto hacia Baleares.<br>
-        <strong>Fiesta:</strong> Terrazas del puerto, chiringuitos de playa y locales con música en verano.
+        <strong>Actividades:</strong> Playas de Les Marines y Les Rotes, castillo, Montgó y paseos en barco hacia Ibiza y Formentera.<br>
+        <strong>Hoteles:</strong> Apartamentos y hoteles frente al mar, casas rurales en interior.<br>
+        <strong>Transporte:</strong> Coche recomendable; ferris a Baleares desde el puerto.<br>
+        <strong>Fiesta:</strong> Terrazas del puerto y chiringuitos de playa.
       `,
       "Bilbao": `
-        <strong>Actividades:</strong> Museo Guggenheim, casco viejo (Siete Calles), paseo por la ría, funicular de Artxanda, excursiones a San Juan de Gaztelugatxe.<br>
-        <strong>Hoteles:</strong> Zona Guggenheim y centro, hoteles boutique cerca de la ría.<br>
-        <strong>Transporte:</strong> Metro, tranvía y buses, buena base para visitar la costa vasca.<br>
-        <strong>Fiesta:</strong> Bares de pintxos en el casco viejo y zonas de Indautxu y Pozas.
+        <strong>Actividades:</strong> Museo Guggenheim, casco viejo, paseo por la ría, Artxanda y excursiones a la costa vasca.<br>
+        <strong>Hoteles:</strong> Zona Guggenheim y centro con hoteles boutique.<br>
+        <strong>Transporte:</strong> Metro, tranvía y buses.<br>
+        <strong>Fiesta:</strong> Bares de pintxos en el casco viejo y zona de Indautxu.
       `,
       "San Sebastián": `
-        <strong>Actividades:</strong> Playa de La Concha, Parte Vieja, monte Igueldo, Ondarreta y Zurriola, ruta de pintxos.<br>
-        <strong>Hoteles:</strong> Hoteles frente a La Concha, alojamientos boutique en la Parte Vieja.<br>
-        <strong>Transporte:</strong> Ciudad perfecta para caminar o ir en bici; trenes regionales a pueblos cercanos.<br>
-        <strong>Fiesta:</strong> Bares de pintxos que se alargan hasta la noche y locales de copas en la Parte Vieja.
+        <strong>Actividades:</strong> Playa de La Concha, Parte Vieja, Monte Igueldo, Zurriola, ruta de pintxos.<br>
+        <strong>Hoteles:</strong> Hoteles frente a la bahía, alojamientos boutique en el centro.<br>
+        <strong>Transporte:</strong> Todo se recorre andando o en bici.<br>
+        <strong>Fiesta:</strong> Bares de pintxos que se alargan y locales en la Parte Vieja.
       `,
       "Santiago de Compostela": `
-        <strong>Actividades:</strong> Catedral y plaza del Obradoiro, casco histórico, parques como la Alameda, fin de etapa del Camino de Santiago.<br>
-        <strong>Hoteles:</strong> Hospedajes con encanto en el centro histórico y hoteles modernos en el ensanche.<br>
-        <strong>Transporte:</strong> Tren con A Coruña y resto de Galicia, ciudad muy cómoda para recorrer a pie.<br>
-        <strong>Ambiente:</strong> Bares de vinos y tapas con ambiente peregrino y universitario.
+        <strong>Actividades:</strong> Catedral, casco histórico, parques como la Alameda, fin del Camino de Santiago.<br>
+        <strong>Hoteles:</strong> Hospedajes con encanto en el casco histórico.<br>
+        <strong>Transporte:</strong> Ciudad compacta y caminable.<br>
+        <strong>Ambiente:</strong> Bares de vino y tapas con mezcla de peregrinos y estudiantes.
       `,
       "A Coruña": `
-        <strong>Actividades:</strong> Torre de Hércules, paseo marítimo, casco antiguo, playas de Riazor y Orzán.<br>
-        <strong>Hoteles:</strong> Hoteles frente al mar y alojamientos en el centro urbano.<br>
-        <strong>Transporte:</strong> Ciudad compacta para ir andando o en bus urbano.<br>
-        <strong>Fiesta:</strong> Zonas de vinos y tapas en el Orzán y el casco viejo.
+        <strong>Actividades:</strong> Torre de Hércules, paseo marítimo, playas de Riazor y Orzán.<br>
+        <strong>Hoteles:</strong> Hoteles frente al mar y centro urbano.<br>
+        <strong>Transporte:</strong> Buses urbanos, ciudad fácil para caminar.<br>
+        <strong>Fiesta:</strong> Zonas de vinos y terrazas en el casco viejo.
       `,
       "Vigo (Rías Baixas)": `
-        <strong>Actividades:</strong> Casco viejo, puerto, excursiones a las islas Cíes, rutas por las Rías Baixas.<br>
-        <strong>Hoteles:</strong> Hoteles en el centro y alojamientos de costa en la ría.<br>
-        <strong>Transporte:</strong> Buen punto de partida para explorar las Rías Baixas en coche.<br>
-        <strong>Fiesta:</strong> Bares del casco histórico y zona del puerto.
+        <strong>Actividades:</strong> Casco viejo, puerto, excursiones a las islas Cíes y Rías Baixas.<br>
+        <strong>Hoteles:</strong> Hoteles en el centro y alojamientos en la ría.<br>
+        <strong>Transporte:</strong> Buen punto para explorar Rías Baixas en coche.<br>
+        <strong>Fiesta:</strong> Bares en el casco antiguo y zona del puerto.
       `,
       "Mallorca": `
-        <strong>Actividades:</strong> Serra de Tramuntana, Palma histórica, calas como Cala d'Or o Cala Mondragó, pueblos como Sóller o Valldemossa.<br>
-        <strong>Hoteles:</strong> Resorts de playa en Palmanova o Alcúdia, fincas rurales y hoteles boutique en Palma y la Tramuntana.<br>
-        <strong>Transporte:</strong> Coche muy recomendable para recorrer la isla; tren turístico a Sóller desde Palma.<br>
-        <strong>Fiesta:</strong> Beach clubs en zonas como Magaluf o Playa de Palma, bares en el centro de Palma y terrazas con vistas al mar.
+        <strong>Actividades:</strong> Serra de Tramuntana, Palma, calas como Cala d'Or, Cala Mondragó, pueblos como Sóller o Valldemossa.<br>
+        <strong>Hoteles:</strong> Resorts de playa, fincas rurales y hoteles boutique en Palma y Tramuntana.<br>
+        <strong>Transporte:</strong> Coche muy recomendable; tren turístico a Sóller.<br>
+        <strong>Fiesta:</strong> Beach clubs en Magaluf/Palmanova y bares en Palma.
       `,
       "Ibiza": `
-        <strong>Actividades:</strong> Calas como Cala Comte, Cala Bassa o Cala d'Hort, atardeceres en San Antonio, Dalt Vila (Ibiza ciudad), excursiones en barco a Formentera.<br>
-        <strong>Hoteles:</strong> Hoteles de playa y beach clubs en Playa d'en Bossa y San Antonio, agroturismos y villas en el interior para un ambiente más tranquilo.<br>
-        <strong>Transporte:</strong> Coche o moto muy recomendables para moverte entre calas, playas y pueblos.<br>
-        <strong>Fiesta:</strong> Clubs y beach clubs como Ushuaïa, Hï Ibiza, Pacha, Amnesia, Hard Rock Hotel, O Beach o UNVRS, además de chiringuitos con ambiente chill.
+        <strong>Actividades:</strong> Calas como Cala Comte, Cala Bassa o Cala d'Hort, Dalt Vila, atardeceres en San Antonio, excursiones a Formentera.<br>
+        <strong>Hoteles:</strong> Hoteles de playa en Playa d'en Bossa y San Antonio, agroturismos y villas en interior.<br>
+        <strong>Transporte:</strong> Coche o moto muy recomendables para recorrer la isla.<br>
+        <strong>Fiesta:</strong> Clubs y beach clubs como Ushuaïa, Hï Ibiza, Pacha, Amnesia, Hard Rock Hotel, O Beach o UNVRS, además de chiringuitos chill.
       `,
       "Menorca": `
-        <strong>Actividades:</strong> Calas vírgenes como Macarella o Turqueta, pueblos como Ciutadella y Mahón, rutas del Camí de Cavalls.<br>
+        <strong>Actividades:</strong> Calas vírgenes (Macarella, Turqueta, Mitjana), pueblos como Ciutadella y Mahón, Camí de Cavalls.<br>
         <strong>Hoteles:</strong> Hoteles familiares de playa y alojamientos rurales muy tranquilos.<br>
-        <strong>Transporte:</strong> Coche imprescindible para llegar a calas y rincones menos conocidos.<br>
-        <strong>Ambiente:</strong> Mucho más relajado que Ibiza o Mallorca, ideal para desconectar.
+        <strong>Transporte:</strong> Coche imprescindible para llegar a calas.<br>
+        <strong>Ambiente:</strong> Muy relajado, ideal para desconectar.
       `,
       "Formentera": `
-        <strong>Actividades:</strong> Playas de Ses Illetes y Migjorn, rutas en bici, atardeceres desde el faro de La Mola.<br>
-        <strong>Hoteles:</strong> Pequeños hoteles y apartamentos; muchas estancias cerca del mar.<br>
-        <strong>Transporte:</strong> Se llega en barco desde Ibiza; moverse en moto o bici es lo más habitual.<br>
-        <strong>Ambiente:</strong> Chill, bohemio y muy de día; algunos beach bars con música al atardecer.
+        <strong>Actividades:</strong> Playas de Ses Illetes y Migjorn, rutas en bici, faro de La Mola.<br>
+        <strong>Hoteles:</strong> Pequeños hoteles y apartamentos cerca del mar.<br>
+        <strong>Transporte:</strong> Llegada en barco desde Ibiza; moverse en moto o bici.<br>
+        <strong>Ambiente:</strong> Chill y bohemio, con beach bars al atardecer.
       `,
       "Tenerife": `
-        <strong>Actividades:</strong> Parque Nacional del Teide, playas del sur (Costa Adeje, Los Cristianos), Anaga, avistamiento de cetáceos en barco.<br>
-        <strong>Hoteles:</strong> Resorts en el sur para sol y playa, hoteles rurales en el norte para naturaleza.<br>
-        <strong>Transporte:</strong> Coche muy recomendable para recorrer la isla completa.<br>
-        <strong>Fiesta:</strong> Zonas de ocio en Playa de las Américas y Costa Adeje.
+        <strong>Actividades:</strong> Parque Nacional del Teide, Anaga, playas del sur (Costa Adeje, Los Cristianos).<br>
+        <strong>Hoteles:</strong> Resorts en el sur para sol y playa, hoteles rurales en el norte.<br>
+        <strong>Transporte:</strong> Coche muy recomendable para recorrer la isla.<br>
+        <strong>Fiesta:</strong> Playa de las Américas y Costa Adeje.
       `,
       "Gran Canaria": `
-        <strong>Actividades:</strong> Dunas de Maspalomas, playas del sur, ciudad de Las Palmas, rutas por el interior montañoso.<br>
+        <strong>Actividades:</strong> Dunas de Maspalomas, Las Palmas, rutas por el interior montañoso.<br>
         <strong>Hoteles:</strong> Resorts en Maspalomas y Playa del Inglés, hoteles urbanos en Las Palmas.<br>
-        <strong>Transporte:</strong> Autobuses interurbanos y coche de alquiler para llegar a las playas más alejadas.<br>
+        <strong>Transporte:</strong> Autobuses y coche de alquiler.<br>
         <strong>Fiesta:</strong> Vida nocturna en Playa del Inglés y Las Palmas.
       `,
       "Lanzarote": `
-        <strong>Actividades:</strong> Parque Nacional de Timanfaya, Jameos del Agua, Cueva de los Verdes, viñedos de La Geria.<br>
-        <strong>Hoteles:</strong> Zonas de Costa Teguise, Puerto del Carmen y Playa Blanca.<br>
-        <strong>Transporte:</strong> Coche para desplazarse entre volcanes, playas y pueblos blancos.<br>
-        <strong>Ambiente:</strong> Bares y restaurantes junto al mar con ambiente relajado.
+        <strong>Actividades:</strong> Timanfaya, Jameos del Agua, Cueva de los Verdes, viñedos de La Geria.<br>
+        <strong>Hoteles:</strong> Costa Teguise, Puerto del Carmen y Playa Blanca.<br>
+        <strong>Transporte:</strong> Coche recomendable para ver volcanes y playas.<br>
+        <strong>Ambiente:</strong> Restaurantes frente al mar y bares relajados.
       `,
       "Fuerteventura": `
-        <strong>Actividades:</strong> Playas kilométricas como Corralejo y Jandía, deportes acuáticos (surf, kitesurf, windsurf).<br>
-        <strong>Hoteles:</strong> Resorts en el norte y sur de la isla, hoteles enfocadas a deportes de agua.<br>
-        <strong>Transporte:</strong> Coche muy recomendable; distancias largas entre zonas.<br>
-        <strong>Ambiente:</strong> Bares de surfistas y chiringuitos con música frente al mar.
+        <strong>Actividades:</strong> Playas de Corralejo y Jandía, surf, kitesurf y windsurf.<br>
+        <strong>Hoteles:</strong> Resorts en el norte y sur, alojamientos orientados a deportes de agua.<br>
+        <strong>Transporte:</strong> Coche recomendable, distancias largas entre zonas.<br>
+        <strong>Ambiente:</strong> Bares de surfistas y chiringuitos frente al mar.
       `
-      // El resto usará texto genérico
     };
 
     function getGenericCityInfo(city) {
       return `
-        <strong>Actividades:</strong> Paseo por el centro, visitas culturales y naturaleza de los alrededores.<br>
+        <strong>Actividades:</strong> Paseo por el centro, visitas culturales y naturaleza cercana.<br>
         <strong>Hoteles:</strong> Alojamiento en zona céntrica o en áreas tranquilas según el estilo de viaje.<br>
-        <strong>Transporte:</strong> Recomendable combinar transporte público y coche de alquiler si quieres moverte por la región.<br>
+        <strong>Transporte:</strong> Combinar transporte público y coche de alquiler si quieres moverte por la región.<br>
         <strong>Ambiente:</strong> Bares y restaurantes locales para probar la gastronomía típica.
       `;
     }
@@ -566,7 +614,7 @@
           c.textContent = city;
 
           c.addEventListener("click", () => {
-            // BORRAR infos anteriores de esa CCAA antes de mostrar la nueva
+            // eliminar info anterior de esa CCAA
             list.querySelectorAll(".info-box").forEach(el => el.remove());
 
             const info = document.createElement("div");
@@ -595,12 +643,14 @@
     // ============================================================
 
     let step = 0;
+    const TOTAL_STEPS = 9; // 0..8
     const answers = {
       nombre: "",
       email: "",
       edad: "",
       destino: "",
       personas: "",
+      presupuesto: "",
       fechaIda: "",
       fechaVuelta: "",
       ritmo: "",
@@ -622,6 +672,23 @@
       return groups;
     })();
 
+    function renderProgress(container) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "progress-wrapper";
+      const text = document.createElement("div");
+      text.textContent = `Pregunta ${step + 1} de ${TOTAL_STEPS}`;
+      const barBg = document.createElement("div");
+      barBg.className = "progress-bar-bg";
+      const barFill = document.createElement("div");
+      barFill.className = "progress-bar-fill";
+      const percent = ((step + 1) / TOTAL_STEPS) * 100;
+      barFill.style.width = percent + "%";
+      barBg.appendChild(barFill);
+      wrapper.appendChild(text);
+      wrapper.appendChild(barBg);
+      container.appendChild(wrapper);
+    }
+
     function renderQuestion() {
       personalPlanContainer.innerHTML = "";
       personalPlanContainer.classList.remove("hidden");
@@ -636,17 +703,13 @@
           <label>Escribe tu nombre completo para saber cómo dirigirnos a ti.</label>
           <input type="text" id="nombreInput" placeholder="Nombre y apellidos" value="${answers.nombre || ""}">
         `;
-      }
-
-      if (step === 1) {
+      } else if (step === 1) {
         box.innerHTML = `
           <h3>2. Correo de contacto</h3>
           <label>Escribe tu correo. Ahí recibirás tu propuesta de viaje en PDF.</label>
           <input type="email" id="emailInput" placeholder="tucorreo@ejemplo.com" value="${answers.email || ""}">
         `;
-      }
-
-      if (step === 2) {
+      } else if (step === 2) {
         box.innerHTML = `
           <h3>3. ¿Edad?</h3>
           <label>Elige tu rango de edad.</label>
@@ -664,9 +727,7 @@
             document.getElementById("edadSelect").value = answers.edad;
           }, 0);
         }
-      }
-
-      if (step === 3) {
+      } else if (step === 3) {
         const destWrapper = document.createElement("div");
         destWrapper.innerHTML = `
           <h3>4. ¿Qué deseas visitar?</h3>
@@ -699,9 +760,7 @@
             document.getElementById("destinoSelect").value = answers.destino;
           }, 0);
         }
-      }
-
-      if (step === 4) {
+      } else if (step === 4) {
         box.innerHTML = `
           <h3>5. ¿Cuántos viajan?</h3>
           <label>Elige el número total de personas.</label>
@@ -715,11 +774,26 @@
             document.getElementById("personasSelect").value = answers.personas;
           }, 0);
         }
-      }
-
-      if (step === 5) {
+      } else if (step === 5) {
         box.innerHTML = `
-          <h3>6. ¿Cuánto tiempo?</h3>
+          <h3>6. ¿Cuánto estás dispuesto a pagar (sin contar el vuelo)?</h3>
+          <label>Presupuesto aproximado por persona.</label>
+          <select id="presupuestoSelect">
+            <option value="">Selecciona un rango</option>
+            <option value="-300">Hasta 300€</option>
+            <option value="300-600">300€ - 600€</option>
+            <option value="600-900">600€ - 900€</option>
+            <option value="+1000">Más de 1000€</option>
+          </select>
+        `;
+        if (answers.presupuesto) {
+          setTimeout(() => {
+            document.getElementById("presupuestoSelect").value = answers.presupuesto;
+          }, 0);
+        }
+      } else if (step === 6) {
+        box.innerHTML = `
+          <h3>7. ¿Cuánto tiempo?</h3>
           <label>Selecciona fechas de ida y vuelta.</label>
           <div class="daterange">
             <div>
@@ -732,11 +806,9 @@
             </div>
           </div>
         `;
-      }
-
-      if (step === 6) {
+      } else if (step === 7) {
         box.innerHTML = `
-          <h3>7. ¿Cómo quieres el viaje?</h3>
+          <h3>8. ¿Cómo quieres el viaje?</h3>
           <label>Elige el ritmo del viaje.</label>
           <select id="ritmoSelect">
             <option value="">Selecciona</option>
@@ -751,11 +823,9 @@
             document.getElementById("ritmoSelect").value = answers.ritmo;
           }, 0);
         }
-      }
-
-      if (step === 7) {
+      } else if (step === 8) {
         box.innerHTML = `
-          <h3>8. ¿Dónde quieres pasar tu estancia?</h3>
+          <h3>9. ¿Dónde quieres pasar tu estancia?</h3>
           <label>Tipo de alojamiento preferido.</label>
           <select id="alojamientoSelect">
             <option value="">Selecciona</option>
@@ -787,12 +857,12 @@
 
       const nextBtn = document.createElement("button");
       nextBtn.className = "next-btn";
-      nextBtn.textContent = step === 7 ? "Ir a confirmar" : "Siguiente";
+      nextBtn.textContent = step === TOTAL_STEPS - 1 ? "Ir a confirmar" : "Siguiente";
 
       nextBtn.onclick = () => {
         if (!saveCurrentStep(true)) return;
 
-        if (step < 7) {
+        if (step < TOTAL_STEPS - 1) {
           step++;
           renderQuestion();
         } else {
@@ -803,7 +873,13 @@
       buttonsDiv.appendChild(nextBtn);
       box.appendChild(buttonsDiv);
 
+      const note = document.createElement("div");
+      note.className = "privacy-note";
+      note.textContent = "Tus datos solo se usan para preparar tu viaje y no se comparten con terceros.";
+      box.appendChild(note);
+
       personalPlanContainer.appendChild(box);
+      renderProgress(personalPlanContainer);
     }
 
     function saveCurrentStep(showAlerts) {
@@ -814,45 +890,42 @@
           return false;
         }
         answers.nombre = val;
-      }
-
-      if (step === 1) {
+      } else if (step === 1) {
         const val = document.getElementById("emailInput").value.trim();
         if (!val && showAlerts) {
           alert("Por favor, escribe tu correo de contacto.");
           return false;
         }
         answers.email = val;
-      }
-
-      if (step === 2) {
+      } else if (step === 2) {
         const val = document.getElementById("edadSelect").value;
         if (!val && showAlerts) {
           alert("Por favor, elige un rango de edad.");
           return false;
         }
         answers.edad = val;
-      }
-
-      if (step === 3) {
+      } else if (step === 3) {
         const val = document.getElementById("destinoSelect").value;
         if (!val && showAlerts) {
           alert("Por favor, elige un destino o la opción aleatoria.");
           return false;
         }
         answers.destino = val;
-      }
-
-      if (step === 4) {
+      } else if (step === 4) {
         const val = document.getElementById("personasSelect").value;
         if (!val && showAlerts) {
           alert("Por favor, indica cuántos viajan.");
           return false;
         }
         answers.personas = val;
-      }
-
-      if (step === 5) {
+      } else if (step === 5) {
+        const val = document.getElementById("presupuestoSelect").value;
+        if (!val && showAlerts) {
+          alert("Por favor, indica tu presupuesto aproximado.");
+          return false;
+        }
+        answers.presupuesto = val;
+      } else if (step === 6) {
         const ida = document.getElementById("fechaIdaInput").value;
         const vuelta = document.getElementById("fechaVueltaInput").value;
         if ((!ida || !vuelta) && showAlerts) {
@@ -861,18 +934,14 @@
         }
         answers.fechaIda = ida;
         answers.fechaVuelta = vuelta;
-      }
-
-      if (step === 6) {
+      } else if (step === 7) {
         const val = document.getElementById("ritmoSelect").value;
         if (!val && showAlerts) {
           alert("Por favor, indica cómo quieres el viaje.");
           return false;
         }
         answers.ritmo = val;
-      }
-
-      if (step === 7) {
+      } else if (step === 8) {
         const val = document.getElementById("alojamientoSelect").value;
         if (!val && showAlerts) {
           alert("Por favor, elige el tipo de alojamiento.");
@@ -889,8 +958,24 @@
       const box = document.createElement("div");
       box.className = "conditions-box";
 
+      const resumen = `
+        <p><strong>Resumen de tu viaje:</strong></p>
+        <ul>
+          <li><strong>Nombre:</strong> ${answers.nombre}</li>
+          <li><strong>Correo:</strong> ${answers.email}</li>
+          <li><strong>Edad:</strong> ${answers.edad}</li>
+          <li><strong>Destino:</strong> ${answers.destino}</li>
+          <li><strong>Personas:</strong> ${answers.personas}</li>
+          <li><strong>Presupuesto aprox. por persona:</strong> ${answers.presupuesto}</li>
+          <li><strong>Fechas:</strong> ${answers.fechaIda} → ${answers.fechaVuelta}</li>
+          <li><strong>Ritmo:</strong> ${answers.ritmo}</li>
+          <li><strong>Alojamiento preferido:</strong> ${answers.alojamiento}</li>
+        </ul>
+      `;
+
       box.innerHTML = `
         <h3>Condiciones y envío del plan</h3>
+        ${resumen}
         <p>Antes de finalizar, revisa estas condiciones:</p>
         <ul>
           <li>Tu viaje se generará de forma personalizada combinando IA y revisión humana.</li>
@@ -907,10 +992,10 @@
       buttonsDiv.style.marginTop = "15px";
 
       const backBtn = document.createElement("button");
-      backBtn.textContent = "Volver";
+      backBtn.textContent = "Volver y editar";
       backBtn.className = "back-btn";
       backBtn.onclick = () => {
-        step = 7;
+        step = 0;
         renderQuestion();
       };
 
@@ -942,6 +1027,7 @@
         `Edad: ${answers.edad}`,
         `Destino deseado: ${answers.destino}`,
         `Número de viajeros: ${answers.personas}`,
+        `Presupuesto aprox. por persona (sin vuelo): ${answers.presupuesto}`,
         `Fecha de ida: ${answers.fechaIda}`,
         `Fecha de vuelta: ${answers.fechaVuelta}`,
         `Ritmo de viaje: ${answers.ritmo}`,
